@@ -26,43 +26,70 @@ public class Main {
         SistemaClinica sistema = new SistemaClinica(clinica, costos);
 
         // Médicos
-        Medico m1 = new Medico("111", "Juan", "Pérez", "M001",
-                Especialidad.CIRUGIA, TipoContratacion.RESIDENTE, Posgrado.MAGISTER);
-        Medico m2 = new Medico("222", "Ana", "Suárez", "M002",
-                Especialidad.CLINICA, TipoContratacion.PLANTEL_PERMANENTE, Posgrado.DOCTOR);
-        Medico m3 = new Medico("333", "Carlos", "López", "M003",
+        Medico m1 = new Medico("101", "Juan", "Pérez", "M001",
+                Especialidad.CIRUGIA, TipoContratacion.PLANTEL_PERMANENTE, Posgrado.DOCTOR);
+
+        Medico m2 = new Medico("102", "Ana", "Suárez", "M002",
+                Especialidad.CLINICA, TipoContratacion.RESIDENTE, Posgrado.MAGISTER);
+
+        Medico m3 = new Medico("103", "Carlos", "López", "M003",
                 Especialidad.PEDIATRIA, TipoContratacion.RESIDENTE, Posgrado.NINGUNO);
 
+        Medico m4 = new Medico("104", "Lucía", "Fernández", "M004",
+                Especialidad.CLINICA, TipoContratacion.PLANTEL_PERMANENTE, Posgrado.MAGISTER);
+
+        Medico m5 = new Medico("105", "Ricardo", "Gómez", "M005",
+                Especialidad.CIRUGIA, TipoContratacion.RESIDENTE, Posgrado.NINGUNO);
+
+        Medico m6 = new Medico("106", "Valeria", "Martínez", "M006",
+                Especialidad.PEDIATRIA, TipoContratacion.PLANTEL_PERMANENTE, Posgrado.DOCTOR);
         sistema.registraMedico(m1);
         sistema.registraMedico(m2);
         sistema.registraMedico(m3);
+        sistema.registraMedico(m4);
+        sistema.registraMedico(m5);
+        sistema.registraMedico(m6);
 
         // Pacientes
-        Paciente p1 = new Paciente("555", "Luis", "Martínez", "HC001", "9999", new Nino());
-        Paciente p2 = new Paciente("666", "Sofía", "Gómez", "HC002","8411", new Mayor());
+        Paciente p1 = new Paciente("201", "Lucas", "Martínez", "HC001","1000", new Nino());
+        Paciente p2 = new Paciente("202", "Sofía", "Gómez", "HC002","1001", new Joven());
+        Paciente p3 = new Paciente("203", "Martín", "Fernández", "HC003","1002", new Mayor());
+        Paciente p4 = new Paciente("204", "Valentina", "Ruiz", "HC004","1003", new Joven());
+        Paciente p5 = new Paciente("205", "Joaquín", "López", "HC005","1004", new Nino());
+        Paciente p6 = new Paciente("206", "Carolina", "Pérez", "HC006","1005", new Mayor());
 
         sistema.registraPaciente(p1);
         sistema.registraPaciente(p2);
+        sistema.registraPaciente(p3);
+        sistema.registraPaciente(p4);
+        sistema.registraPaciente(p5);
+        sistema.registraPaciente(p6);
 
-        // Flujo del sistema (exactamente como pediste)
-        sistema.ingresaPaciente(p1);
-        sistema.ingresaPaciente(p2);
+        // Flujo del sistema
+        sistema.ingresaPaciente(p1); // niño
+        sistema.ingresaPaciente(p2); // joven
+        sistema.ingresaPaciente(p3); // mayor
+        // Niño gana prioridad -> entra primero a sala
 
         sistema.atiendePaciente(m1, p1);
         sistema.atiendePaciente(m2, p1);
-        Factura factura1 = sistema.egresaPaciente(p1);
+        sistema.egresaPaciente(p1);
 
         sistema.atiendePaciente(m3, p2);
-        sistema.internaPaciente(p2, new HabPrivada("H3"), 4);
-        Factura factura2 = sistema.egresaPaciente(p2, 4);
+        sistema.internaPaciente(p2, new HabPrivada("H1"), 3);
+        sistema.egresaPaciente(p2, 3);
+
+        sistema.atiendePaciente(m4, p3);
+        sistema.internaPaciente(p3, new HabCompartida("H2"), 5);
+        sistema.egresaPaciente(p3, 5);
 
         sistema.imprimirFacturas();
 
-        sistema.reporteActividad(
+        /* sistema.reporteActividad(
                 m3,
                 LocalDate.of(2025, 10, 1),
                 LocalDate.of(2025, 10, 31)
         );
-
+        */
     }
 }

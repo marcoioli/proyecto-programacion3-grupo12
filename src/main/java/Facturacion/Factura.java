@@ -3,6 +3,8 @@ package Facturacion;
 import Configuracion.Clinica;
 import Personas.Paciente;
 import Facturacion.Facturable.*;
+
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -86,9 +88,14 @@ public final class Factura {
         System.out.println("----------------------------------------------------------\n");
     }
 
-    public long getNumero() {
-        return numero;
+    public List<IFacturable> getItems() {
+        return items;
     }
+
+    public LocalDate getFecha() {
+        return fechaEgreso;
+    }
+
 
 }
 

@@ -6,6 +6,7 @@ import Habitaciones.*;
 import Personas.*;
 import Sistema.SistemaClinica;
 import Sala.*;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
@@ -56,5 +57,12 @@ public class Main {
         Factura factura2 = sistema.egresaPaciente(p2, 4);
 
         sistema.imprimirFacturas();
+
+        sistema.reporteActividad(
+                m3,
+                LocalDate.of(2025, 10, 1),
+                LocalDate.of(2025, 10, 31)
+        );
+
     }
 }

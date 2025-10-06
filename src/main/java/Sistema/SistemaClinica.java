@@ -7,6 +7,8 @@ import Facturacion.Facturable.Consulta;
 import Facturacion.Facturable.ItemInternacion;
 import Habitaciones.*;
 import Personas.*;
+import Reportes.ActividadMedica;
+import Reportes.ReporteActividad;
 import Sala.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -102,5 +104,15 @@ public final class SistemaClinica {
             f.imprimir();
         }
     }
+
+    // ---------------------- Reportes ----------------------
+
+    public void reporteActividad(Medico medico, LocalDate desde, LocalDate hasta) {
+        ActividadMedica service = new ActividadMedica();
+        ReporteActividad reporte = service.generar(medico, desde, hasta, facturas);
+        service.imprimir(reporte, desde, hasta);
+    }
+
+
 
 }

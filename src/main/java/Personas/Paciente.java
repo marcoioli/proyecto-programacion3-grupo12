@@ -1,5 +1,7 @@
 package Personas;
 
+import Sala.PrioridadSala;
+
 /**
  * Representa a un paciente dentro del sistema.
  * Extiende {@link Persona} y agrega el número de historia clínica
@@ -28,5 +30,10 @@ public final class Paciente extends Persona {
         this.nroHistoriaClinica = nroHistoriaClinica;
         this.rango = rango;
     }
+
+    public PrioridadSala getRango() {
+        return rango;
+    }
+
 
 }

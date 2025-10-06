@@ -1,5 +1,9 @@
 package Personas;
 
+import Configuracion.Especialidad;
+import Configuracion.Posgrado;
+import Configuracion.TipoContratacion;
+
 public class Medico extends Persona {
 
     /**
@@ -15,13 +19,29 @@ public class Medico extends Persona {
     private final TipoContratacion tipoContratacion;
     private final Posgrado posgrado;
     private double honorarioBase = 20000.0; // valor inicial común (puede modificarse)
-2
+
     public Medico(String dni, String nombre, String apellido, String matricula, Especialidad especialidad, TipoContratacion tipoContratacion, Posgrado posgrado) {
         super(dni, nombre, apellido);
         this.matricula = matricula;
         this.especialidad = especialidad;
         this.tipoContratacion = tipoContratacion;
         this.posgrado = posgrado;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public TipoContratacion getTipoContratacion() {
+        return tipoContratacion;
+    }
+
+    public Posgrado getPosgrado() {
+        return posgrado;
     }
 
 }

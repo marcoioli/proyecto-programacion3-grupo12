@@ -9,4 +9,4 @@ package Sala;
         /** Ambos tienen la misma prioridad. */
         EMPATE
     }
-}
+

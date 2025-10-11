@@ -25,8 +25,8 @@ public final class Paciente extends Persona {
      * @param rango instancia concreta de {@link PrioridadSala}
      */
 
-    public Paciente(String dni, String nombre, String apellido, String matricula, String nroHistoriaClinica, PrioridadSala rango) {
-        super(dni,nombre,apellido);
+    public Paciente(String dni, String nombre, String apellido, String domicilio, String ciudad, String telefono, String nroHistoriaClinica, PrioridadSala rango) {
+        super(dni,nombre,apellido,domicilio,ciudad,telefono);
         this.nroHistoriaClinica = nroHistoriaClinica;
         this.rango = rango;
     }

@@ -3,8 +3,8 @@ import java.util.Objects;
 
 
 /**
- * Agrupa una habitacion con la cantidad de dias de internacion.
- * <p>Entidad de transporte simple (DTO/record-equivalente) con validaciones minimas.</p>
+ * Agrupa una habitación con la cantidad de días de internación.
+ * <p>Entidad de transporte simple (DTO/record-equivalente) con validaciones mínimas.</p>
  */
 public final class Internacion {
 
@@ -12,9 +12,9 @@ public final class Internacion {
     private final int dias;
 
     /**
-     * Crea una internacion.
-     * @param habitacion habitacion asignada (no nula)
-     * @param dias cantidad de dias (&gt; 0)
+     * Crea una internación.
+     * @param habitacion habitación asignada (no nula)
+     * @param dias cantidad de días (&gt; 0)
      *
      */
     public Internacion(Habitacion habitacion, int dias) {
@@ -25,13 +25,13 @@ public final class Internacion {
     }
 
 
-    /** @return habitacion asignada */
+    /** @return habitación asignada */
     public Habitacion getHabitacion() {
         return habitacion;
     }
 
 
-    /** @return cantidad de dias de internacion */
+    /** @return cantidad de días de internación */
     public int getDias() {
         return dias;
     }

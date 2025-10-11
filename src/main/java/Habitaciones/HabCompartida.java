@@ -1,6 +1,7 @@
 package Habitaciones;
 
 import Configuracion.CatalogoCostos;
+import Excepciones.*;
 
 /**
  * Habitacion compartida: costo lineal por día + costo de asignacion.

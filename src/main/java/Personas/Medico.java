@@ -20,8 +20,8 @@ public class Medico extends Persona {
     private final Posgrado posgrado;
     private double honorarioBase = 20000.0; // valor inicial común (puede modificarse)
 
-    public Medico(String dni, String nombre, String apellido, String matricula, Especialidad especialidad, TipoContratacion tipoContratacion, Posgrado posgrado) {
-        super(dni, nombre, apellido);
+    public Medico(String dni, String nombre, String apellido, String domicilio, String ciudad, String telefono, String matricula, Especialidad especialidad, TipoContratacion tipoContratacion, Posgrado posgrado) {
+        super(dni, nombre, apellido, domicilio, ciudad, telefono);
         this.matricula = matricula;
         this.especialidad = especialidad;
         this.tipoContratacion = tipoContratacion;

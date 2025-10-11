@@ -2,6 +2,7 @@ package Habitaciones;
 
 import Configuracion.CatalogoCostos;
 import java.math.*;
+import Excepciones.*;
 
 /**
  * Habitacion privada: costo por dia multiplicado por un factor segun tramos de estancia.

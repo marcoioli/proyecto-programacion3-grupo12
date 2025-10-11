@@ -12,6 +12,8 @@ import Reportes.ReporteActividad;
 import Sala.*;
 import java.time.LocalDate;
 import java.util.*;
+import Excepciones.*;
+
 
 /**
  * Fachada principal del sistema. Gestiona medicos, pacientes, sala, internaciones y facturacion.
@@ -44,15 +46,33 @@ public final class SistemaClinica {
     public void registraMedico(Medico m) { medicos.put(m.getMatricula(), m); }
     public void registraPaciente(Paciente p) { pacientes.put(p.getDni(), p); }
 
+    // ---metodo auxiliar para centralizar la validación----
+
+    private void verificarPacienteRegistrado(Paciente p) {
+        if (!pacientes.containsKey(p.getDni())) {
+            throw new PacienteNoRegistradoException(p.getDni());
+        }
+    }
+    private void verificarMedicoRegistrado(Medico m) {
+        if (!medicos.containsKey(m.getDni())) {
+            throw new MedicoNoRegistradoException(m.getDni());
+        }
+    }
+
     // ---------------- Ingreso ----------------
 
     public void ingresaPaciente(Paciente p) {
+        verificarPacienteRegistrado(p);
         sala.ingresar(p);
     }
+
+
 
     // ---------------- Atención ----------------
 
     public void atiendePaciente(Medico m, Paciente p) {
+        verificarPacienteRegistrado(p);
+        verificarMedicoRegistrado(m);
         enAtencion.computeIfAbsent(p, k -> new ArrayList<>()).add(m);
         sala.liberarSiEs(p);
 
@@ -62,6 +82,7 @@ public final class SistemaClinica {
     // ---------------- Internación ----------------
 
     public void internaPaciente(Paciente p, Habitacion h, int dias) {
+        verificarPacienteRegistrado(p);
         Internacion i = new Internacion(h, dias);
         internaciones.put(p, i);
     }
@@ -69,6 +90,7 @@ public final class SistemaClinica {
     // ---------------- Egreso y Facturación ----------------
 
     public Factura egresaPaciente(Paciente p) {
+        verificarPacienteRegistrado(p);
         return egresaPaciente(p, 1);
     }
 

@@ -2,12 +2,18 @@ package Habitaciones;
 
 import Configuracion.CatalogoCostos;
 
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Habitacion {
 
+<<<<<<< HEAD
     /** Identificador/codigo interno de la habitacion. */
+=======
+    /** Identificador/código interno de la habitación.
+     * si este es nulo o ya esta usado lanza excepcion */
+>>>>>>> dc9c2bd (Excepciones)
     private final String id;
+    private static final Set<String> habitaciones = new HashSet<>();
     /**
      * Crea una habitacion base.
      *
@@ -15,8 +21,13 @@ public abstract class Habitacion {
      *
      */
     protected Habitacion(String id) {
-        // verificar si ID ya existe?? excepcion
+
+        if (id == null || id.isEmpty())
+            throw new IllegalArgumentException("El identificador no puede ser nulo ni vacío.");
+        if (habitaciones.contains(id))
+            throw new IllegalArgumentException("El identificador '" + id + "' ya está en uso.");
         this.id = id;
+        habitaciones.add(id);
     }
 
     /** @return identificador/codigo de la habitacion */
@@ -26,14 +37,19 @@ public abstract class Habitacion {
     /**
      * Calcula el costo total de una internacion en esta habitacion.
      * Recibe dias>0
+<<<<<<< HEAD
      * @param dias cantidad de días de internacion (debe ser &gt; 0)
      * @param costos catalogo de costos y parametros del sistema
+=======
+     * @param dias cantidad de días de internación (debe ser &gt; 0) precondicion
+     * @param costos catálogo de costos y parámetros del sistema
+>>>>>>> dc9c2bd (Excepciones)
      * @return costo total calculado en {@code double}
-     * @throws IllegalArgumentException si {@code dias} &lt;= 0 o {@code costos} es nulo
+     * @throws NullPointerException si {@code costos} es nulo
      */
 
-    public final double calcularCosto(int dias, CatalogoCostos costos) {
-        //manejo de excepcioen
+    public final double calcularCosto(int dias, CatalogoCostos costos) throws NullPointerException {
+        //manejo de excepciones
         Objects.requireNonNull(costos, "El catálogo de costos no puede ser nulo");
         return CalcularCosto(dias, costos);
     }

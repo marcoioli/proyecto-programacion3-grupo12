@@ -23,10 +23,13 @@ public abstract class Persona {
      * @param apellido apellido
      */
 
-    public Persona(String dni, String nombre, String apellido) {
+    public Persona(String dni, String nombre, String apellido, String domicilio, String ciudad, String telefono) {
         this.dni= dni;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.domicilio = domicilio;
+        this.ciudad = ciudad;
+        this.telefono = telefono;
     }
 
     public String getDni() {

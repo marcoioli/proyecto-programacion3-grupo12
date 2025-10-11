@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Servicio que genera el reporte de actividad de un médico en un período.
+ * Servicio que genera el reporte de actividad de un médico en un periodo.
  */
 
 public final class ActividadMedica {
@@ -19,7 +19,7 @@ public final class ActividadMedica {
      * Genera el reporte de actividad para un médico dentro de un rango de fechas.
      * La fecha de la consulta corresponde a la fecha de la factura.
      *
-     * @param medico médico a reportar
+     * @param medico medico a reportar
      * @param desde fecha inicial (inclusive)
      * @param hasta fecha final (inclusive)
      * @param facturas lista de facturas del sistema

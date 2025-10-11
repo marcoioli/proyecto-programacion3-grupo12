@@ -1,7 +1,7 @@
 package Configuracion;
 
 /**
- * Tipo de relación contractual del médico con la clínica.
+ * Tipo de relacion contractual del medico con la clinica.
  */
 public enum TipoContratacion {
     PLANTEL_PERMANENTE,

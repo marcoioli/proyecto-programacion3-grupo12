@@ -3,7 +3,7 @@ package Habitaciones;
 import Configuracion.CatalogoCostos;
 
 /**
- * Habitación compartida: costo lineal por día + costo de asignación.
+ * Habitacion compartida: costo lineal por día + costo de asignacion.
  */
 public final class HabCompartida extends Habitacion {
 

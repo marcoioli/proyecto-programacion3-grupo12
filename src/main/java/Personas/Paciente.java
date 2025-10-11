@@ -4,9 +4,9 @@ import Sala.PrioridadSala;
 
 /**
  * Representa a un paciente dentro del sistema.
- * Extiende {@link Persona} y agrega el número de historia clínica
+ * Extiende {@link Persona} y agrega el numero de historia clinica
  * y el rango etario, utilizado para resolver la prioridad en la sala
- * de espera mediante el patrón <b>Double Dispatch</b>.
+ * de espera mediante el patron <b>Double Dispatch</b>.
  *
  * @see
  */
@@ -16,7 +16,7 @@ public final class Paciente extends Persona {
     private PrioridadSala rango; // Nino/Joven/Mayor
 
     /**
-     * Crea un paciente identificado por su historia clínica.
+     * Crea un paciente identificado por su historia clinica.
      *
      * @param dni documento de identidad
      * @param nombre nombre de pila

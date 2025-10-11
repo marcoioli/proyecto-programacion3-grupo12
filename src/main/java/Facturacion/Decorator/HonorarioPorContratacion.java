@@ -3,7 +3,7 @@ package Facturacion.Decorator;
 import Configuracion.TipoContratacion;
 
 /**
- * Incrementa el honorario según la modalidad de contratación.
+ * Incrementa el honorario según la modalidad de contratacion.
  */
 
 public final class HonorarioPorContratacion extends HonorarioDecorator {

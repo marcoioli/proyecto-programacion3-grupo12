@@ -3,8 +3,8 @@ package Personas;
 public abstract class Persona {
 
     /**
-     *  Clase abstracta que representa a una persona dentro del sistema de la clínica.
-     *  Contiene los datos identificatorios y de contacto comunes a pacientes y médicos.
+     *  Clase abstracta que representa a una persona dentro del sistema de la clinica.
+     *  Contiene los datos identificatorios y de contacto comunes a pacientes y medicos.
      *  <p>Es la superclase de {@link Medico} y {@link Paciente}.</p>
      */
 
@@ -18,7 +18,7 @@ public abstract class Persona {
     /**
      * Constructor de la clase Persona.
      *
-     * @param dni documento de identidad, no debe ser nulo ni vacío
+     * @param dni documento de identidad, no debe ser nulo ni vacio
      * @param nombre nombre de pila
      * @param apellido apellido
      */

@@ -1,7 +1,7 @@
 package Configuracion;
 
 /**
- * Nivel de formación de posgrado alcanzado por un médico.
+ * Nivel de formacion de posgrado alcanzado por un medico.
  */
 public enum Posgrado {
     NINGUNO,

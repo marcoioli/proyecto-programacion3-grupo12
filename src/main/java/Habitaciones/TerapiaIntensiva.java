@@ -4,9 +4,9 @@ import Configuracion.CatalogoCostos;
 import java.math.*;
 
 /**
- * Terapia Intensiva: crecimiento potencial del costo con los días.
+ * Terapia Intensiva: crecimiento potencial del costo con los dias.
  * <p>
- * Implementación parametrizable: {@code costoTI * (dias ^ potenciaTI)} + asignación.
+ * Implementacion parametrizable: {@code costoTI * (dias ^ potenciaTI)} + asignacion.
  * Donde {@code potenciaTI} y {@code costoTI} provienen de {@link CatalogoCostos}.
  * </p>
  */

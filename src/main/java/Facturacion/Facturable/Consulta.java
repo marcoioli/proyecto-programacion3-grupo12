@@ -5,7 +5,7 @@ import Personas.Paciente;
 import java.time.LocalDate;
 
 /**
- * Representa una consulta médica realizada por un médico a un paciente.
+ * Representa una consulta medica realizada por un medico a un paciente.
  */
 public final class Consulta implements IFacturable {
 

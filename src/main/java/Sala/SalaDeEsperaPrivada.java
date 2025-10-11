@@ -5,11 +5,11 @@ import Personas.Paciente;
 
 
 /**
- * Representa la sala de espera privada de la clínica.
+ * Representa la sala de espera privada de la clinica.
  * <p>
  * Solo puede haber un paciente dentro. Si otro intenta ingresar,
- * se aplica la comparación de prioridades (Niño, Joven, Mayor)
- * mediante el patrón <b>Double Dispatch</b>.
+ * se aplica la comparacion de prioridades (Niño, Joven, Mayor)
+ * mediante el patron <b>Double Dispatch</b>.
  * </p>
  * <p>
  * - Si el nuevo paciente gana: reemplaza al actual y el anterior pasa al {@link Patio}. <br>
@@ -67,7 +67,7 @@ public class SalaDeEsperaPrivada {
     }
 
     /**
-     * Obtiene el paciente actual (puede ser null si la sala está vacía).
+     * Obtiene el paciente actual (puede ser null si la sala está vacia).
      *
      * @return paciente actual o null
      */
@@ -76,7 +76,7 @@ public class SalaDeEsperaPrivada {
     }
 
     /**
-     * Indica si la sala está vacía.
+     * Indica si la sala está vacia.
      *
      * @return true si no hay ocupante
      */

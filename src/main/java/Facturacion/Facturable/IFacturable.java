@@ -1,7 +1,7 @@
 package Facturacion.Facturable;
 
 /**
- * Representa un concepto facturable (consulta, internación, etc.).
+ * Representa un concepto facturable (consulta, internacion, etc.).
  */
 public interface IFacturable {
     /**

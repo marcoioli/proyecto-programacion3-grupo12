@@ -6,12 +6,12 @@ import java.util.Objects;
 
 public abstract class Habitacion {
 
-    /** Identificador/código interno de la habitación. */
+    /** Identificador/codigo interno de la habitacion. */
     private final String id;
     /**
-     * Crea una habitación base.
+     * Crea una habitacion base.
      *
-     * @param id identificador único lógico (no nulo ni vacío)
+     * @param id identificador unico logico (no nulo ni vacio)
      *
      */
     protected Habitacion(String id) {
@@ -19,15 +19,15 @@ public abstract class Habitacion {
         this.id = id;
     }
 
-    /** @return identificador/código de la habitación */
+    /** @return identificador/codigo de la habitacion */
     public String getId() { return id; }
 
 
     /**
-     * Calcula el costo total de una internación en esta habitación.
+     * Calcula el costo total de una internacion en esta habitacion.
      * Recibe dias>0
-     * @param dias cantidad de días de internación (debe ser &gt; 0)
-     * @param costos catálogo de costos y parámetros del sistema
+     * @param dias cantidad de días de internacion (debe ser &gt; 0)
+     * @param costos catalogo de costos y parametros del sistema
      * @return costo total calculado en {@code double}
      * @throws IllegalArgumentException si {@code dias} &lt;= 0 o {@code costos} es nulo
      */

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
- * Fachada principal del sistema. Gestiona médicos, pacientes, sala, internaciones y facturación.
+ * Fachada principal del sistema. Gestiona medicos, pacientes, sala, internaciones y facturacion.
  */
 public final class SistemaClinica {
 

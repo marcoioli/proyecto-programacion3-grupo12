@@ -4,7 +4,7 @@ import Configuracion.*;
 import Personas.Medico;
 
 /**
- * Interfaz base para el cálculo de honorarios médicos.
+ * Interfaz base para el calculo de honorarios medicos.
  */
 
 public interface Honorario {

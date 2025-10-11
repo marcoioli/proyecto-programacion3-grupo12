@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Contiene la información resultante del reporte de actividad médica:
- * - Médico
+ * Contiene la informacion resultante del reporte de actividad medica:
+ * - Medico
  * - Consultas agrupadas por fecha
  * - Total de honorarios
  */

@@ -1,7 +1,7 @@
 package Configuracion;
 
 /**
- * Catálogo centralizado de costos y parámetros del sistema.
+ * Catalogo centralizado de costos y parámetros del sistema.
  * <p>Separa datos de configuración de la lógica de negocio.</p>
  */
 

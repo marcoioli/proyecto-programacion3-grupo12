@@ -1,7 +1,7 @@
 package Configuracion;
 
 /**
- * Representa los datos generales de la clínica.
+ * Representa los datos generales de la clinica.
  */
 
 public final class Clinica {

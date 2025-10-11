@@ -3,7 +3,7 @@ package Facturacion.Decorator;
 import Configuracion.Posgrado;
 
 /**
- * Incrementa el honorario según el posgrado del médico.
+ * Incrementa el honorario segun el posgrado del medico.
  */
 public final class HonorarioPorPosgrado extends HonorarioDecorator {
 

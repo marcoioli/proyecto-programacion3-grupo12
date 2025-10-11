@@ -3,7 +3,7 @@ package Facturacion.Decorator;
 import Configuracion.Especialidad;
 
 /**
- * Incrementa el honorario según la especialidad médica.
+ * Incrementa el honorario según la especialidad medica.
  */
 
 public final class HonorarioPorEspecialidad extends HonorarioDecorator {

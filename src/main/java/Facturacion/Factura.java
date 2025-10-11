@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Factura emitida al egresar un paciente.
- * Contiene los datos de la clínica, paciente, internaciones y consultas.
+ * Contiene los datos de la clinica, paciente, internaciones y consultas.
  */
 public final class Factura {
 

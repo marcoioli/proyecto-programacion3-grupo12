@@ -4,9 +4,9 @@ import Configuracion.CatalogoCostos;
 import Personas.Medico;
 
 /**
- *  Fábrica responsable de construir la cadena completa de objetos {@link Honorario}
+ *  Fabrica responsable de construir la cadena completa de objetos {@link Honorario}
  *   Esta clase centraliza la creación de los incrementos de honorarios
- *   según las reglas del sistema
+ *   segun las reglas del sistema
  */
 
 public class FabricaHonorario {

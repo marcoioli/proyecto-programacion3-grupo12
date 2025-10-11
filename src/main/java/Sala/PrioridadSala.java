@@ -4,7 +4,7 @@ public interface PrioridadSala {
     /**
      * Resuelve la prioridad contra otra instancia, delegando en el tipo concreto del otro.
      * @param otro otra prioridad
-     * @return {@link Resolucion} según las reglas de negocio
+     * @return {@link Resolucion} segun las reglas de negocio
      */
 
     Resolucion resolverContra(PrioridadSala otro);

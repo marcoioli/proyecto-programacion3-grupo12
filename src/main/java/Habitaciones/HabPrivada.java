@@ -4,13 +4,13 @@ import Configuracion.CatalogoCostos;
 import java.math.*;
 
 /**
- * Habitación privada: costo por día multiplicado por un factor según tramos de estancia.
+ * Habitacion privada: costo por dia multiplicado por un factor segun tramos de estancia.
  * <ul>
- * <li>Día 1: factor {@code factorPrivadaDia1}</li>
- * <li>Días 2..5: factor {@code factorPrivadaHasta5Dias}</li>
- * <li>Días &gt; 5: factor {@code factorPrivadaMasDe5Dias}</li>
+ * <li>Dia 1: factor {@code factorPrivadaDia1}</li>
+ * <li>Dias 2..5: factor {@code factorPrivadaHasta5Dias}</li>
+ * <li>Dias &gt; 5: factor {@code factorPrivadaMasDe5Dias}</li>
  * </ul>
- * Siempre se adiciona el costo de asignación.
+ * Siempre se adiciona el costo de asignacion.
  */
 
 public final class HabPrivada extends Habitacion {

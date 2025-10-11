@@ -3,7 +3,7 @@ package Facturacion.Facturable;
 import Habitaciones.Internacion;
 
 /**
- * Representa una internación como un ítem facturable.
+ * Representa una internacion como un item facturable.
  */
 public final class ItemInternacion implements IFacturable {
 

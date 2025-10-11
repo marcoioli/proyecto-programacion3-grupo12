@@ -4,11 +4,11 @@ import Personas.Paciente;
 import java.util.*;
 
 /**
- * Representa el patio común donde esperan los pacientes que no pudieron
+ * Representa el patio comun donde esperan los pacientes que no pudieron
  * acceder a la sala de espera privada.
  * <p>
  * Se implementa como una cola
- * Solo existe una instancia de patio (patrón <b>Singleton</b>).
+ * Solo existe una instancia de patio (patron <b>Singleton</b>).
  * </p>
  */
 
@@ -23,7 +23,7 @@ public class Patio {
     private Patio() {}
 
     /**
-     * Obtiene la instancia única del patio (Singleton).
+     * Obtiene la instancia unica del patio (Singleton).
      *
      * @return instancia global del patio
      */
@@ -50,7 +50,7 @@ public class Patio {
     /**
      * Obtiene y remueve el siguiente paciente de la cola (si existe).
      *
-     * @return paciente dentro de Optional, o vacío si no hay
+     * @return paciente dentro de Optional, o vacio si no hay
      */
     public Optional<Paciente> sacarSiguiente() {
         Optional<Paciente> resultado;

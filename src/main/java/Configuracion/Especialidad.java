@@ -1,7 +1,7 @@
 package Configuracion;
 
 /**
- * Enumeración de las especialidades médicas reconocidas por la clínica.
+ * Enumeracion de las especialidades medicas reconocidas por la clinica.
  */
 public enum Especialidad {
     CLINICA,

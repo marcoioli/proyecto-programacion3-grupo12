@@ -74,9 +74,8 @@ public class FabricaHonorario {
 
     public Honorario crearPara(Medico medico) {
         // 1️⃣ Base
-        Honorario h = new HonorarioBasico(costos.getCostoAsignacion());
+        Honorario h = new HonorarioBasico(medico.getHonorarioBase());
 
-        // 2️⃣ Decoradores (orden correcto)
         h = new HonorarioPorEspecialidad(h, medico.getEspecialidad());
         h = new HonorarioPorPosgrado(h, medico.getPosgrado());
         h = new HonorarioPorContratacion(h, medico.getTipoContratacion());

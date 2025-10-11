@@ -99,6 +99,12 @@ public class Medico extends Persona {
         return posgrado;
     }
 
+    public double getHonorarioBase() {
+        return honorarioBase;
+    }
+
+
+
 }
 
 

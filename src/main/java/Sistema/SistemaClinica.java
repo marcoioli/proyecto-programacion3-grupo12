@@ -152,15 +152,29 @@ public final class SistemaClinica {
 
     // ---------------- Egreso y Facturación ----------------
     /**
-     * Egrega a un paciente generando su factura correspondiente.
+     * Egresa a un paciente generando su factura correspondiente.
+     * <p>
+     * Si el paciente tiene una internación registrada, las fechas de la factura
+     * se ajustan automáticamente al número de días internado.
+     * Si no tiene internación, se asume una estadía de 1 día.
+     * </p>
      *
      * @param p paciente a egresar
      * @return factura emitida
      *
+     * @throws PacienteNoRegistradoException si el paciente no está registrado
      */
     public Factura egresaPaciente(Paciente p) {
         verificarPacienteRegistrado(p);
-        return egresaPaciente(p, 1);
+
+        int diasInternacion = 1;
+
+        // Si el paciente tiene internación registrada, usar sus días reales
+        if (internaciones.containsKey(p)) {
+            diasInternacion = internaciones.get(p).getDias();
+        }
+
+        return egresaPaciente(p, diasInternacion);
     }
 
     /**
@@ -176,6 +190,9 @@ public final class SistemaClinica {
      * @throws PacienteNoRegistradoException si el paciente no está registrado
      */
     public Factura egresaPaciente(Paciente p, int diasInternacion) {
+
+        verificarPacienteRegistrado(p);
+
         LocalDate fechaIngreso = LocalDate.now().minusDays(diasInternacion);
         LocalDate fechaEgreso = LocalDate.now();
 
@@ -188,6 +205,8 @@ public final class SistemaClinica {
             double honorario = fabrica.crearPara(m).calcular();
             f.addItem(new Consulta(m, p, LocalDate.now(), honorario));
         }
+
+        //Agregar internacion si existe
 
         if (internaciones.containsKey(p)) {
             Internacion i = internaciones.remove(p);

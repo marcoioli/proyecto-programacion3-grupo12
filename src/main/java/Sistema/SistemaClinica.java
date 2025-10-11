@@ -16,7 +16,23 @@ import Excepciones.*;
 
 
 /**
- * Fachada principal del sistema. Gestiona medicos, pacientes, sala, internaciones y facturacion.
+ * Fachada principal del sistema de la clínica.
+ * <p>
+ *
+ * <p>Aplica el patrón <b>Facade</b>, ofreciendo un único punto de acceso al sistema
+ * para controlar y coordinar las operaciones de negocio.</p>
+ *
+ * <p><b>Casos de uso:</b></p>
+ * <ul>
+ *   <li>Registrar médicos y pacientes.</li>
+ *   <li>Ingresar, atender, internar y egresar pacientes.</li>
+ *   <li>Emitir facturas y generar reportes de actividad médica.</li>
+ * </ul>
+ *
+ * @see Factura
+ * @see ActividadMedica
+ * @see Habitacion
+ * @see FabricaHonorario
  */
 public final class SistemaClinica {
 
@@ -35,6 +51,20 @@ public final class SistemaClinica {
 
     private long secuenciaFactura = 1; // para contar n de facturas
 
+
+    /**
+     * Crea un nuevo sistema clínico con la configuración especificada.
+     *
+     * @param clinica datos generales de la clínica
+     * @param costos catálogo de costos base del sistema
+     *
+     * <p><b>Precondiciones:</b></p>
+     * <ul>
+     *   <li>{@code clinica} y {@code costos} deben estar correctamente inicializados.</li>
+     * </ul>
+     *
+     * <p><b>Postcondición:</b> se crea una fachada lista para registrar entidades y procesar operaciones.</p>
+     */
     public SistemaClinica(Clinica clinica, CatalogoCostos costos) {
         this.clinica = clinica;
         this.costos = costos;
@@ -43,7 +73,18 @@ public final class SistemaClinica {
 
     // ---------------- Registro ----------------
 
+    /**
+     * Registra un nuevo médico en el sistema.
+     *
+     * @param m médico a registrar (no nulo)
+     */
     public void registraMedico(Medico m) { medicos.put(m.getMatricula(), m); }
+
+    /**
+     * Registra un nuevo paciente en el sistema.
+     *
+     * @param p paciente a registrar (no nulo)
+     */
     public void registraPaciente(Paciente p) { pacientes.put(p.getDni(), p); }
 
     // ---metodo auxiliar para centralizar la validación----
@@ -56,15 +97,31 @@ public final class SistemaClinica {
 
     // ---------------- Ingreso ----------------
 
+    /**
+     * Intenta ingresar un paciente al sistema y a la sala de espera.
+     *
+     * @param p paciente a ingresar
+     *
+     * @throws PacienteNoRegistradoException si el paciente no está registrado
+     *
+     * <p><b>Postcondición:</b> el paciente queda en la sala o en el patio según su prioridad.</p>
+     */
     public void ingresaPaciente(Paciente p) {
         verificarPacienteRegistrado(p);
         sala.ingresar(p);
     }
 
-
-
-    // ---------------- Atención ----------------
-
+    /**
+     * Registra que un médico atiende a un paciente.
+     * <p>
+     * Si el paciente aún no tenía médicos asignados, se crea su lista correspondiente.
+     * </p>
+     *
+     * @param m médico que atiende
+     * @param p paciente atendido
+     *
+     * @throws PacienteNoRegistradoException si el paciente no está registrado
+     */
     public void atiendePaciente(Medico m, Paciente p) {
         verificarPacienteRegistrado(p);
         enAtencion.computeIfAbsent(p, k -> new ArrayList<>()).add(m);
@@ -73,8 +130,20 @@ public final class SistemaClinica {
         //si el paciente no tiene lista de medicos, crea una, y agrega el medico a la lista
     }
 
-    // ---------------- Internación ----------------
-
+    /**
+     * Interna a un paciente en una habitación por cierta cantidad de días.
+     *
+     * @param p paciente a internar
+     * @param h habitación asignada
+     * @param dias cantidad de días de internación (&gt; 0)
+     *
+     * <p><b>Precondiciones:</b></p>
+     *       <ul>
+     *         <li>dias debe ser mayor o igual a 0</li>
+     *       </ul>
+     *
+     * @throws PacienteNoRegistradoException si el paciente no está registrado
+     */
     public void internaPaciente(Paciente p, Habitacion h, int dias) {
         verificarPacienteRegistrado(p);
         Internacion i = new Internacion(h, dias);
@@ -82,12 +151,30 @@ public final class SistemaClinica {
     }
 
     // ---------------- Egreso y Facturación ----------------
-
+    /**
+     * Egrega a un paciente generando su factura correspondiente.
+     *
+     * @param p paciente a egresar
+     * @return factura emitida
+     *
+     */
     public Factura egresaPaciente(Paciente p) {
         verificarPacienteRegistrado(p);
         return egresaPaciente(p, 1);
     }
 
+    /**
+     * Egrega a un paciente generando la factura correspondiente al egreso.
+     * <p>
+     * Incluye todas las consultas registradas y, si existiera, la internación asociada.
+     * </p>
+     *
+     * @param p paciente a egresar
+     * @param diasInternacion días de internación a considerar
+     * @return factura generada
+     *
+     * @throws PacienteNoRegistradoException si el paciente no está registrado
+     */
     public Factura egresaPaciente(Paciente p, int diasInternacion) {
         LocalDate fechaIngreso = LocalDate.now().minusDays(diasInternacion);
         LocalDate fechaEgreso = LocalDate.now();
@@ -123,6 +210,15 @@ public final class SistemaClinica {
 
     // ---------------------- Reportes ----------------------
 
+    /**
+     * Genera e imprime el reporte de actividad de un médico en un período.
+     *
+     * @param medico médico a reportar
+     * @param desde fecha de inicio (inclusive)
+     * @param hasta fecha de fin (inclusive)
+     *
+     * <p><b>Postcondición:</b> se muestra en consola el reporte agrupado por día y totalizado.</p>
+     */
     public void reporteActividad(Medico medico, LocalDate desde, LocalDate hasta) {
         ActividadMedica service = new ActividadMedica();
         ReporteActividad reporte = service.generar(medico, desde, hasta, facturas);

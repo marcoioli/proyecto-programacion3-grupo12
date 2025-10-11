@@ -9,11 +9,41 @@ import Sala.*;
 import Excepciones.*;
 import java.time.LocalDate;
 
+/**
+ * Clase principal de demostración del sistema de clínica.
+ * <p>
+ * Contiene un escenario de prueba completo que muestra el funcionamiento integrado de los módulos:
+ * </p>
+ * <ul>
+ *   <li><b>Configuración</b>: creación de la clínica y sus costos base.</li>
+ *   <li><b>Registro</b>: alta de médicos y pacientes.</li>
+ *   <li><b>Sala de espera</b>: aplicación del patrón <b>Double Dispatch</b> entre pacientes (Niño, Joven, Mayor).</li>
+ *   <li><b>Atención e internación</b>: registro de médicos y asignación de habitaciones.</li>
+ *   <li><b>Facturación</b>: emisión de facturas a través de la fachada {@link SistemaClinica}.</li>
+ *   <li><b>Reportes</b>: generación e impresión de reportes de actividad médica.</li>
+ * </ul>
+ *
+ * <p><b>Resultado esperado:</b></p>
+ * <ul>
+ *   <li>Los pacientes se procesan respetando las prioridades.</li>
+ *   <li>Las facturas incluyen los honorarios médicos y los costos de internación.</li>
+ *   <li>El sistema imprime por consola las facturas formateadas.</li>
+ * </ul>
+ *
+ * @see SistemaClinica
+ * @see Factura
+ * @see Habitacion
+ * @see SalaDeEsperaPrivada
+ * @see Patio
+ * @see Personas.Medico
+ * @see Personas.Paciente
+ */
+
 public class Main {
     public static void main(String[] args) {
 
         // Datos de la clínica
-        Clinica clinica = new Clinica("Clínica San Martín", "Av. Siempreviva 742",
+        Clinica clinica = new Clinica("Clínica Ejemplo 1", "Avenida Ejemplo1 2314",
                 "223-4567890", "Mar del Plata");
 
         // Costos base
@@ -27,22 +57,22 @@ public class Main {
         SistemaClinica sistema = new SistemaClinica(clinica, costos);
 
         // Médicos
-        Medico m1 = new Medico("101", "Juan", "Pérez",
+        Medico m1 = new Medico("101", "Ioli", "Marco",
                 "San Martín 123", "Mar del Plata", "2235112233",
                 "M001", Especialidad.CIRUGIA,
                 TipoContratacion.PLANTEL_PERMANENTE, Posgrado.DOCTOR);
 
-        Medico m2 = new Medico("102", "Ana", "Suárez",
+        Medico m2 = new Medico("102", "Julieta", "Fontana",
                 "Av. Colón 850", "Mar del Plata", "2235234567",
                 "M002", Especialidad.CLINICA,
                 TipoContratacion.RESIDENTE, Posgrado.MAGISTER);
 
-        Medico m3 = new Medico("103", "Carlos", "López",
+        Medico m3 = new Medico("103", "Jeremias", "Arango",
                 "Rivadavia 742", "Balcarce", "2266432123",
                 "M003", Especialidad.PEDIATRIA,
                 TipoContratacion.RESIDENTE, Posgrado.NINGUNO);
 
-        Medico m4 = new Medico("104", "Lucía", "Fernández",
+        Medico m4 = new Medico("104", "Joaquin", "Pollio",
                 "Belgrano 950", "Mar del Plata", "2235987456",
                 "M004", Especialidad.CLINICA,
                 TipoContratacion.PLANTEL_PERMANENTE, Posgrado.MAGISTER);
@@ -65,9 +95,9 @@ public class Main {
         sistema.registraMedico(m6);
 
         // Pacientes
-        Paciente p1 = new Paciente("201", "Lucas", "Martín","Calle San Martín 123", "Mar del Plata", "2235123456" ,"1000", new Nino());
-        Paciente p2 = new Paciente("202", "Sofía", "Gómez", "Av. Colón 850", "Mar del Plata", "2235345678", "1001", new Joven());
-        Paciente p3 = new Paciente("203", "Martín", "Fernández", "Calle Belgrano 742", "Miramar", "2291523476", "1002", new Mayor());
+        Paciente p1 = new Paciente("201", "Ivonne", "Gellon","Calle San Martín 123", "Mar del Plata", "2235123456" ,"1000", new Nino());
+        Paciente p2 = new Paciente("202", "Leonel", "Guccione", "Av. Colón 850", "Mar del Plata", "2235345678", "1001", new Joven());
+        Paciente p3 = new Paciente("203", "Guillermo", "Lazzurri", "Calle Belgrano 742", "Miramar", "2291523476", "1002", new Mayor());
         Paciente p4 = new Paciente("204", "Valentina", "Ruiz", "Rivadavia 1030", "Balcarce", "2266412398", "1003", new Joven());
         Paciente p5 = new Paciente("205", "Joaquín", "López", "Italia 620", "Mar del Plata", "2235987456", "1004", new Nino());
         Paciente p6 = new Paciente("206", "Carolina", "Pérez", "Independencia 900", "Tandil", "2494432100", "1005", new Mayor());

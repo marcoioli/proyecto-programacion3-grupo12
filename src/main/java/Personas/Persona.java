@@ -1,12 +1,25 @@
 package Personas;
 
-public abstract class Persona {
+/**
+ * Clase abstracta que representa a una persona dentro del sistema de la clínica.
+ * <p>
+ * Contiene los datos identificatorios y de contacto comunes a todas las personas
+ * del sistema (pacientes y médicos).
+ * </p>
+ *
+ * <p><b>Rol en el sistema:</b></p>
+ * <ul>
+ *   <li>Superclase de {@link Medico} y {@link Paciente}.</li>
+ * </ul>
+ *
+ * <p><b>Casos de uso:</b></p>
+ * <ul>
+ *   <li>Registro de médicos y pacientes en el sistema.</li>
+ *   <li>Acceso unificado a información de identidad y contacto.</li>
+ * </ul>
+ */
 
-    /**
-     *  Clase abstracta que representa a una persona dentro del sistema de la clinica.
-     *  Contiene los datos identificatorios y de contacto comunes a pacientes y medicos.
-     *  <p>Es la superclase de {@link Medico} y {@link Paciente}.</p>
-     */
+public abstract class Persona {
 
     protected String dni;
     protected String nombre;
@@ -16,11 +29,22 @@ public abstract class Persona {
     protected String telefono;
 
     /**
-     * Constructor de la clase Persona.
+     * Crea una nueva persona con los datos básicos de identificación y contacto.
      *
-     * @param dni documento de identidad, no debe ser nulo ni vacio
-     * @param nombre nombre de pila
-     * @param apellido apellido
+     * @param dni documento nacional de identidad (no nulo ni vacío)
+     * @param nombre nombre de pila (no nulo ni vacío)
+     * @param apellido apellido (no nulo ni vacío)
+     * @param domicilio domicilio actual (puede ser vacío pero no nulo)
+     * @param ciudad ciudad de residencia (puede ser vacío pero no nulo)
+     * @param telefono número de teléfono (puede ser vacío pero no nulo)
+     *
+     * <p><b>Precondiciones:</b></p>
+     * <ul>
+     *   <li>{@code dni}, {@code nombre} y {@code apellido} deben ser cadenas no nulas ni vacías.</li>
+     *   <li>{@code domicilio}, {@code ciudad} y {@code telefono} pueden ser opcionales, pero no nulos.</li>
+     * </ul>
+     *
+     * <p><b>Postcondición:</b> se crea una instancia base lista para ser extendida por {@link Medico} o {@link Paciente}.</p>
      */
 
     public Persona(String dni, String nombre, String apellido, String domicilio, String ciudad, String telefono) {
@@ -36,47 +60,17 @@ public abstract class Persona {
         return dni;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
-    public String getDomicilio() {
-        return domicilio;
-    }
 
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
-    }
 
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
 }

@@ -6,12 +6,9 @@ import java.util.*;
 
 public abstract class Habitacion {
 
-<<<<<<< HEAD
-    /** Identificador/codigo interno de la habitacion. */
-=======
+
     /** Identificador/código interno de la habitación.
      * si este es nulo o ya esta usado lanza excepcion */
->>>>>>> dc9c2bd (Excepciones)
     private final String id;
     private static final Set<String> habitaciones = new HashSet<>();
     /**
@@ -37,13 +34,8 @@ public abstract class Habitacion {
     /**
      * Calcula el costo total de una internacion en esta habitacion.
      * Recibe dias>0
-<<<<<<< HEAD
      * @param dias cantidad de días de internacion (debe ser &gt; 0)
      * @param costos catalogo de costos y parametros del sistema
-=======
-     * @param dias cantidad de días de internación (debe ser &gt; 0) precondicion
-     * @param costos catálogo de costos y parámetros del sistema
->>>>>>> dc9c2bd (Excepciones)
      * @return costo total calculado en {@code double}
      * @throws NullPointerException si {@code costos} es nulo
      */

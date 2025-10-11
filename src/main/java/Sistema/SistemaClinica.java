@@ -53,11 +53,6 @@ public final class SistemaClinica {
             throw new PacienteNoRegistradoException(p.getDni());
         }
     }
-    private void verificarMedicoRegistrado(Medico m) {
-        if (!medicos.containsKey(m.getDni())) {
-            throw new MedicoNoRegistradoException(m.getDni());
-        }
-    }
 
     // ---------------- Ingreso ----------------
 
@@ -72,7 +67,6 @@ public final class SistemaClinica {
 
     public void atiendePaciente(Medico m, Paciente p) {
         verificarPacienteRegistrado(p);
-        verificarMedicoRegistrado(m);
         enAtencion.computeIfAbsent(p, k -> new ArrayList<>()).add(m);
         sala.liberarSiEs(p);
 

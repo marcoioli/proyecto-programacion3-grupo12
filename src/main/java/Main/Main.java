@@ -96,12 +96,11 @@ public class Main {
             sistema.egresaPaciente(p2, 3);
 
             sistema.atiendePaciente(m4, p3);
-            sistema.internaPaciente(p3, new HabCompartida("H1"), 5);
+            sistema.internaPaciente(p3, new HabCompartida("H2"), 5);
             sistema.egresaPaciente(p3, 5);
         }catch (PacienteNoRegistradoException e) {
             System.out.println("Error: " + e.getMessage());
-        }catch (MedicoNoRegistradoException e){
-            System.out.println("Error: " + e.getMessage());
+
         }
         sistema.imprimirFacturas();
 

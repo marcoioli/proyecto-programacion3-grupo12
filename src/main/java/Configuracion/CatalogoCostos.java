@@ -1,8 +1,8 @@
 package Configuracion;
 
 /**
- * Catalogo centralizado de costos y parámetros del sistema.
- * <p>Separa datos de configuración de la lógica de negocio.</p>
+ * Catalogo centralizado de costos y parametros del sistema.
+ * <p>Separa datos de configuracion de la logica de negocio.</p>
  */
 
 public final class CatalogoCostos {

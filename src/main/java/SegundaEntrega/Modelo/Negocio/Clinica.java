@@ -1,24 +1,21 @@
-// Paquete actualizado
+
 package SegundaEntrega.Modelo.Negocio;
 
-// --- Imports Etapa I (PAQUETES ACTUALIZADOS - REVISAR) ---
-// Asume que moviste estas clases a los paquetes correspondientes dentro de SegundaEntrega.Modelo.Datos
 import SegundaEntrega.Modelo.Datos.Configuraciones.CatalogoCostos;
-import SegundaEntrega.Modelo.Excepciones.PacienteNoRegistradoException; // Paquete Excepciones movido
+import SegundaEntrega.Modelo.Excepciones.PacienteNoRegistradoException;
 import SegundaEntrega.Modelo.Datos.Facturable.IFacturable;
-import SegundaEntrega.Modelo.Datos.Habitaciones.*; // Asumiendo paquete Habitaciones
+import SegundaEntrega.Modelo.Datos.Habitaciones.*;
 import SegundaEntrega.Modelo.Datos.Personas.Medico;
 import SegundaEntrega.Modelo.Datos.Personas.Paciente;
 // import SegundaEntrega.Modelo.Datos.Sala.*; // Si tienes clases de Sala
 
-// --- Imports Etapa II ---
 import SegundaEntrega.Modelo.Datos.Personas.Asociado;
 import SegundaEntrega.Modelo.Datos.Personas.Operario;
 import SegundaEntrega.Persistencia.DAOAsociado.AsociadoDAOImpl; // DAO Concreto
 import SegundaEntrega.Persistencia.DAOAsociado.IAsociadoDAO;   // DAO Interfaz
 import SegundaEntrega.Persistencia.PersistenciaExcepciones.DAOException;
-import SegundaEntrega.Modelo.Excepciones.AsociadoDuplicadoException; // Excepciones nuevas
-import SegundaEntrega.Persistencia.ConexionBD.ConexionSingleton; // Singleton de Conexión
+import SegundaEntrega.Modelo.Excepciones.AsociadoDuplicadoException;
+import SegundaEntrega.Persistencia.ConexionBD.ConexionSingleton;
 
 // Imports Java Standard
 import java.sql.SQLException;
@@ -81,13 +78,15 @@ public class Clinica {
             throw new RuntimeException("Error inicializando DAO", e);
         }
 
-        this.gestorAsociados = new GestorAsociados();
+        IAsociadoDAO dao = new AsociadoDAOImpl();
+        this.gestorAsociados = new GestorAsociados(dao);
         this.ambulancia = new Ambulancia();
-        this.operarioPredeterminado = new Operario("Operario", "Sistema", "00000000", "Clinica Central", "N/A", "Ciudad Central");
-        this.simulador = new Simulador(this.ambulancia, this.gestorAsociados, this.operarioPredeterminado);
+        this.simulador = new Simulador(ambulancia, this.gestorAsociados); // Pasa el gestor al simulador
 
-        // Cargar datos persistentes al inicio
-        cargarDatosAsociados();
+        this.operarioPredeterminado = new Operario("Operario", "Sistema", "00000000", "Clinica Central", "N/A", "Ciudad Central");
+        this.simulador = new Simulador(this.ambulancia, this.gestorAsociados);
+
+      //  cargarDatosAsociados();
     }
 
     /** Obtiene la instancia única (Singleton). */

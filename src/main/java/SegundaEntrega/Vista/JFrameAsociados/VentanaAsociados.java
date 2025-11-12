@@ -1,4 +1,4 @@
-package SegundaEntrega.Vista.JframeAsociados;
+package SegundaEntrega.Vista.JFrameAsociados;
 
 import SegundaEntrega.Modelo.Datos.Personas.Asociado; // Importar Asociado
 

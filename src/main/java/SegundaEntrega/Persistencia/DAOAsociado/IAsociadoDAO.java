@@ -51,4 +51,10 @@ public interface IAsociadoDAO {
      */
     void actualizar(Asociado asociado) throws DAOException;
 
+    /**
+     * Inicializa el almacenamiento de asociados (ej: crea tablas).
+     * @throws DAOException Si hay un error de persistencia.
+     */
+    void inicializarTablaAsociados() throws DAOException;
+
 }

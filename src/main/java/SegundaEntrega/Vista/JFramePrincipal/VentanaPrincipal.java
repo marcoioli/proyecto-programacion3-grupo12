@@ -1,4 +1,4 @@
-package SegundaEntrega.Vista.JframePrincipal;
+package SegundaEntrega.Vista.JFramePrincipal;
 
 import javax.swing.*;
 import java.awt.event.ActionListener; // Import para ActionListener
@@ -13,10 +13,9 @@ public class VentanaPrincipal extends JFrame {
     // --- Componentes del Menú ---
     private JMenuBar menuBar;
     private JMenu menuArchivo, menuGestion, menuSimulacion;
-    private JMenuItem itemSalir, itemGestionAsociados, itemIniciarSimulacion;
+    private JMenuItem itemSalir, itemGestionAsociados, itemIniciarSimulacion,itemInicializarBD;
 
     // Podríamos añadir otros componentes si fueran necesarios (ej: un panel de estado)
-
     /**
      * Constructor de la ventana principal.
      */
@@ -53,6 +52,20 @@ public class VentanaPrincipal extends JFrame {
         menuSimulacion.add(itemIniciarSimulacion);
         menuBar.add(menuSimulacion);
 
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menuSistema = new JMenu("Sistema");
+        itemInicializarBD = new JMenuItem("Inicializar Base de Datos");
+        itemInicializarBD.setActionCommand("INICIALIZAR_BD");
+        itemSalir = new JMenuItem("Salir");
+        itemSalir.setActionCommand("SALIR");
+
+        menuSistema.add(itemInicializarBD);
+        menuSistema.addSeparator();
+        menuSistema.add(itemSalir);
+
+        menuBar.add(menuSistema);
+        this.setJMenuBar(menuBar);
+
         // Asignar la barra de menú al JFrame
         this.setJMenuBar(menuBar);
 
@@ -79,6 +92,8 @@ public class VentanaPrincipal extends JFrame {
         itemSalir.addActionListener(listener);
         itemGestionAsociados.addActionListener(listener);
         itemIniciarSimulacion.addActionListener(listener);
+        itemInicializarBD.addActionListener(listener);
+        itemSalir.addActionListener(listener);
     }
 
     /**

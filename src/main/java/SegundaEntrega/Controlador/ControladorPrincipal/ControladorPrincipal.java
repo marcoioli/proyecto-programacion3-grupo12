@@ -1,15 +1,19 @@
 package SegundaEntrega.Controlador.ControladorPrincipal;
 
 import SegundaEntrega.Modelo.Negocio.Clinica; // Acceso al Modelo (Singleton/Facade)
-import SegundaEntrega.Vista.JframePrincipal.VentanaPrincipal;
+import SegundaEntrega.Vista.JFramePrincipal.VentanaPrincipal;
 // Imports para las otras ventanas y controladores que necesitará crear/mostrar
-import SegundaEntrega.Vista.JframeAsociados.VentanaAsociados;
+import SegundaEntrega.Vista.JFrameAsociados.VentanaAsociados;
 import SegundaEntrega.Controlador.ControladorAsociados.ControladorAsociados;
 import SegundaEntrega.Vista.JFrameSimulacion.VentanaSimulacion;
 import SegundaEntrega.Controlador.ControladorSimulacion.ControladorSimulacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import SegundaEntrega.Persistencia.PersistenciaExcepciones.DAOException;
 
 /**
  * Controlador para la VentanaPrincipal. Maneja las acciones del menú.
@@ -52,6 +56,19 @@ public class ControladorPrincipal implements ActionListener {
             case "SIMULACION":
                 abrirVentanaSimulacion();
                 break;
+            case "INICIALIZAR_BD":
+                int respuesta = JOptionPane.showConfirmDialog(
+                        ventanaPrincipal,
+                        "¿Seguro que deseas inicializar la base de datos?\n" +
+                                "Se borrarán todos los datos existentes.",
+                        "Confirmar Inicialización",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    inicializarBaseDeDatos();
+                }
+                break;
             default:
                 System.err.println("Comando no reconocido en ControladorPrincipal: " + command);
                 break;
@@ -87,11 +104,59 @@ public class ControladorPrincipal implements ActionListener {
     }
 
     /**
-     * Inicia la aplicación mostrando la ventana principal.
+     * Inicia la aplicación.
+     * Carga los datos iniciales desde la BD y muestra la ventana principal.
      */
     public void iniciar() {
-        // Cargar datos iniciales si es necesario
-        // clinica.cargarDatos();
+        try {
+            clinica.getGestorAsociados().cargarAsociadosDesdeBD();
+        } catch (DAOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    ventanaPrincipal,
+                    "Error crítico al conectar o cargar la Base de Datos.\n" + e.getMessage() +
+                            "\nVerifica que el servidor MySQL esté corriendo.",
+                    "Error de Persistencia",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
         ventanaPrincipal.mostrarVentana();
     }
+
+    /**
+     * Ejecuta la inicialización de la BD en un hilo separado
+     * para no bloquear la GUI.
+     */
+    private void inicializarBaseDeDatos() {
+        ventanaPrincipal.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
+        new Thread(() -> { // Tarea pesada en hilo nuevo
+            try {
+                clinica.getGestorAsociados().inicializarTablas();
+                SwingUtilities.invokeLater(() -> // Resultado en hilo de GUI
+                        JOptionPane.showMessageDialog(
+                                ventanaPrincipal,
+                                "Base de datos inicializada correctamente.",
+                                "Éxito",
+                                JOptionPane.INFORMATION_MESSAGE
+                        )
+                );
+            } catch (DAOException e) {
+                e.printStackTrace();
+                SwingUtilities.invokeLater(() ->
+                        JOptionPane.showMessageDialog(
+                                ventanaPrincipal,
+                                "Error al inicializar la base de datos:\n" + e.getMessage(),
+                                "Error de Persistencia",
+                                JOptionPane.ERROR_MESSAGE
+                        )
+                );
+            } finally {
+                SwingUtilities.invokeLater(() ->
+                        ventanaPrincipal.setCursor(java.awt.Cursor.getDefaultCursor())
+                );
+            }
+        }).start();
+    }
+
+
 }

@@ -3,7 +3,7 @@ package SegundaEntrega; // Puedes cambiarlo a SegundaEntrega.Main si prefieres
 
 // Imports del Modelo, Vista y Controlador
 import SegundaEntrega.Modelo.Negocio.Clinica;
-import SegundaEntrega.Vista.JframePrincipal.VentanaPrincipal;
+import SegundaEntrega.Vista.JFramePrincipal.VentanaPrincipal;
 import SegundaEntrega.Controlador.ControladorPrincipal.ControladorPrincipal;
 
 // Imports de Swing y AWT para la GUI y eventos

@@ -3,7 +3,7 @@ package SegundaEntrega.Controlador.ControladorAsociados;
 import SegundaEntrega.Modelo.Datos.Personas.Asociado;
 import SegundaEntrega.Modelo.Negocio.GestorAsociados;
 import SegundaEntrega.Modelo.Excepciones.AsociadoDuplicadoException;
-import SegundaEntrega.Vista.JframeAsociados.VentanaAsociados;
+import SegundaEntrega.Vista.JFrameAsociados.VentanaAsociados;
 
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
@@ -81,10 +81,9 @@ public class ControladorAsociados implements ActionListener {
         try {
             modelo.altaAsociado(nuevo);
             vista.mostrarMensaje("Éxito", "Asociado agregado correctamente.");
-            vista.limpiarCampos(); // Limpiar formulario después del éxito
-            // La vista se actualizará automáticamente via Observer
+            vista.limpiarCampos();
+            //se actualiza la lista
         } catch (AsociadoDuplicadoException | IllegalArgumentException ex) {
-            // 4. Informar error a la vista
             vista.mostrarError("Error al agregar", ex.getMessage());
         } catch (Exception ex) { // Captura genérica para otros posibles errores
             vista.mostrarError("Error inesperado", "Ocurrió un error: " + ex.getMessage());

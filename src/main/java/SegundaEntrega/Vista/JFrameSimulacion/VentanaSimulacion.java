@@ -99,10 +99,10 @@ public class VentanaSimulacion extends JFrame implements Observer {
      * @param activa true si la simulación está corriendo, false si está detenida.
      */
     public void setSimulacionActiva(boolean activa) {
-        btnIniciar.setEnabled(!activa);
-        spinnerSolicitudes.setEnabled(!activa); // No cambiar config mientras corre
-        btnFinalizar.setEnabled(activa);
-        btnSolicitarMantenimiento.setEnabled(activa);
+        this.btnIniciar.setEnabled(activa);
+        this.spinnerSolicitudes.setEnabled(activa);
+        this.btnFinalizar.setEnabled(!activa);
+        this.btnSolicitarMantenimiento.setEnabled(!activa);
     }
 
     /** Añade texto al log general (hilos asociados/operario) */

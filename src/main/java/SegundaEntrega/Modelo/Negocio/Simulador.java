@@ -93,7 +93,7 @@ public class Simulador {
         simulacionActiva = false; // Señal para que los hilos terminen sus bucles si lo verifican
 
         // Intenta apagar el executor service ordenadamente
-        executorService.shutdown(); // No acepta nuevas tareas, espera que las actuales terminen
+        executorService.shutdownNow(); // No acepta nuevas tareas, espera que las actuales terminen
         try {
             // Espera un tiempo máximo para que terminen las tareas actuales
             if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {

@@ -117,6 +117,16 @@ public class VentanaPrincipal extends JFrame {
     }
 
     /**
+     * Habilita o deshabilita los controles de gestión de asociados.
+     * @param habilitada true para habilitar, false para deshabilitar.
+     */
+    public void setGestionHabilitada(boolean habilitada) {
+        this.btnGestionAsociados.setEnabled(habilitada);
+        this.menuGestion.setEnabled(habilitada);
+        this.itemInicializarBD.setEnabled(habilitada);
+    }
+
+    /**
      * Método para hacer visible la ventana (llamado desde el controlador o main).
      */
     public void mostrarVentana() {

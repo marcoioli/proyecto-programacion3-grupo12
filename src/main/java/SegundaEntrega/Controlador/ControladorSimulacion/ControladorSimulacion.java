@@ -3,6 +3,7 @@ package SegundaEntrega.Controlador.ControladorSimulacion;
 import SegundaEntrega.Modelo.Negocio.Ambulancia; // Para pasar al observer (aunque ya está registrado)
 import SegundaEntrega.Modelo.Negocio.Simulador;
 import SegundaEntrega.Vista.JFrameSimulacion.VentanaSimulacion;
+import SegundaEntrega.Vista.JFramePrincipal.VentanaPrincipal;
 
 
 import javax.swing.*; // Para SwingUtilities
@@ -17,23 +18,21 @@ public class ControladorSimulacion implements ActionListener {
     private VentanaSimulacion vista;
     private Simulador modeloSimulador;
     private Ambulancia modeloAmbulancia; // Para registrar observer (aunque se hace en C.Principal)
+    private VentanaPrincipal vistaPrincipal;
 
     /**
      * Constructor.
      * @param vista La ventana de simulación.
      * @param modeloSimulador El objeto que maneja la simulación.
      * @param modeloAmbulancia La ambulancia (para el observer).
+     * @param vistaPrincipal La ventana principal (para bloquear/desbloquear).
      */
-    public ControladorSimulacion(VentanaSimulacion vista, Simulador modeloSimulador, Ambulancia modeloAmbulancia) {
+    public ControladorSimulacion(VentanaSimulacion vista, Simulador modeloSimulador, Ambulancia modeloAmbulancia, VentanaPrincipal vistaPrincipal) {
         this.vista = vista;
         this.modeloSimulador = modeloSimulador;
         this.modeloAmbulancia = modeloAmbulancia;
-
-        // Vincula este controlador con la vista
+        this.vistaPrincipal = vistaPrincipal;
         this.vista.setControlador(this);
-
-        // Podríamos registrar el observer aquí también, pero es mejor en C.Principal al abrir la ventana
-        // this.modeloAmbulancia.addObserver(this.vista);
     }
 
     @Override
@@ -62,11 +61,14 @@ public class ControladorSimulacion implements ActionListener {
         if (cantSolicitudes > 0) {
             vista.limpiarLogs(); // Limpiar logs antes de empezar
             vista.setSimulacionActiva(true); // Actualizar botones
-            // Iniciar la simulación en un hilo separado para no bloquear la GUI
+            // simula en un hilo separado
+            this.vistaPrincipal.setGestionHabilitada(false);
             new Thread(() -> {
                 modeloSimulador.iniciarSimulacion(cantSolicitudes);
-                // Podríamos querer actualizar la GUI aquí si la simulación termina por sí sola
-                // SwingUtilities.invokeLater(() -> vista.setSimulacionActiva(false));
+                SwingUtilities.invokeLater(() -> {
+                    vista.setSimulacionActiva(false);
+                    this.vistaPrincipal.setGestionHabilitada(true);
+                });
             }).start();
             vista.agregarLogGeneral("--> Simulación iniciada...");
         } else {
@@ -81,7 +83,10 @@ public class ControladorSimulacion implements ActionListener {
         new Thread(() -> {
             modeloSimulador.finalizarSimulacion();
             // Actualizar la GUI cuando termine
-            SwingUtilities.invokeLater(() -> vista.setSimulacionActiva(false));
+            SwingUtilities.invokeLater(() -> {
+                vista.setSimulacionActiva(false);
+                this.vistaPrincipal.setGestionHabilitada(true); // <-- AÑADIR ESTA LÍNEA
+            });
             SwingUtilities.invokeLater(() -> vista.agregarLogGeneral("--> Simulación finalizada."));
         }).start();
     }

@@ -94,12 +94,14 @@ public class ControladorPrincipal implements ActionListener {
      */
     private void abrirVentanaSimulacion() {
         VentanaSimulacion vSimulacion = new VentanaSimulacion();
-        // Pasar vista y modelo (Simulador y Ambulancia) al controlador específico
-        ControladorSimulacion cSimulacion = new ControladorSimulacion(vSimulacion, clinica.getSimulador(), clinica.getAmbulancia()); // Asume métodos get en Clinica
+        ControladorSimulacion cSimulacion = new ControladorSimulacion(
+                vSimulacion,
+                clinica.getSimulador(),
+                clinica.getAmbulancia(),
+                this.ventanaPrincipal
+        );
         vSimulacion.mostrar();
-        // Registrar la vista como observador de la ambulancia
         clinica.getAmbulancia().addObserver(vSimulacion);
-        // Mostrar estado inicial
         vSimulacion.update(clinica.getAmbulancia(), clinica.getAmbulancia().getNombreEstadoActual());
     }
 

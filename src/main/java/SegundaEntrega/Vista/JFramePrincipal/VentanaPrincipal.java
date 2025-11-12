@@ -1,7 +1,11 @@
 package SegundaEntrega.Vista.JFramePrincipal;
 
 import javax.swing.*;
-import java.awt.event.ActionListener; // Import para ActionListener
+import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
 
 /**
  * Ventana principal de la aplicación de gestión de la clínica.
@@ -14,64 +18,79 @@ public class VentanaPrincipal extends JFrame {
     private JMenuBar menuBar;
     private JMenu menuArchivo, menuGestion, menuSimulacion;
     private JMenuItem itemSalir, itemGestionAsociados, itemIniciarSimulacion,itemInicializarBD;
+    private JButton btnGestionAsociados;
+    private JButton btnSimulacion;
 
-    // Podríamos añadir otros componentes si fueran necesarios (ej: un panel de estado)
     /**
      * Constructor de la ventana principal.
      */
     public VentanaPrincipal() {
         super("Sistema de Gestión Clínica - Etapa II"); // Título de la ventana
+        setLayout(new BorderLayout(10, 10));
         inicializarComponentes();
         configurarVentana();
     }
 
     /**
-     * Crea y configura los componentes de la ventana (menú, etc.).
+     * Crea e inicializa todos los componentes de la ventana principal.
      */
     private void inicializarComponentes() {
+
+        JPanel panelTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel lblTitulo = new JLabel("Sistema de Gestión de Clínica");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
+        panelTitulo.add(lblTitulo);
+        panelTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Panel para los botones principales
+        JPanel panelBotones = new JPanel(new GridLayout(2, 1, 10, 10)); // 2 filas, 1 columna
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // Margen
+
+        btnGestionAsociados = new JButton("Gestionar Asociados");
+        btnGestionAsociados.setActionCommand("GESTION_ASOCIADOS");
+        btnGestionAsociados.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        btnSimulacion = new JButton("Iniciar Simulación");
+        btnSimulacion.setActionCommand("SIMULACION");
+        btnSimulacion.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        panelBotones.add(btnGestionAsociados);
+        panelBotones.add(btnSimulacion);
+
         menuBar = new JMenuBar();
 
         // Menú Archivo
         menuArchivo = new JMenu("Archivo");
         itemSalir = new JMenuItem("Salir");
-        itemSalir.setActionCommand("SALIR"); // Comando para el ActionListener
+        itemSalir.setActionCommand("SALIR");
         menuArchivo.add(itemSalir);
-        menuBar.add(menuArchivo);
+        menuBar.add(menuArchivo); // Se añade a la barra principal
 
         // Menú Gestión
         menuGestion = new JMenu("Gestión");
         itemGestionAsociados = new JMenuItem("Gestionar Asociados");
-        itemGestionAsociados.setActionCommand("GESTION_ASOCIADOS"); // Comando
+        itemGestionAsociados.setActionCommand("GESTION_ASOCIADOS");
         menuGestion.add(itemGestionAsociados);
-        menuBar.add(menuGestion);
+        menuBar.add(menuGestion); // Se añade a la barra principal
 
         // Menú Simulación
         menuSimulacion = new JMenu("Simulación");
         itemIniciarSimulacion = new JMenuItem("Iniciar/Configurar Simulación");
-        itemIniciarSimulacion.setActionCommand("SIMULACION"); // Comando
+        itemIniciarSimulacion.setActionCommand("SIMULACION");
         menuSimulacion.add(itemIniciarSimulacion);
-        menuBar.add(menuSimulacion);
+        menuBar.add(menuSimulacion); // Se añade a la barra principal
 
-        JMenuBar menuBar = new JMenuBar();
+        // Menú Sistema (No redeclares menuBar aquí)
         JMenu menuSistema = new JMenu("Sistema");
         itemInicializarBD = new JMenuItem("Inicializar Base de Datos");
         itemInicializarBD.setActionCommand("INICIALIZAR_BD");
-        itemSalir = new JMenuItem("Salir");
-        itemSalir.setActionCommand("SALIR");
-
         menuSistema.add(itemInicializarBD);
-        menuSistema.addSeparator();
-        menuSistema.add(itemSalir);
+        menuBar.add(menuSistema); // Se añade a la barra principal
 
-        menuBar.add(menuSistema);
         this.setJMenuBar(menuBar);
 
-        // Asignar la barra de menú al JFrame
-        this.setJMenuBar(menuBar);
-
-        // Aquí podrías añadir otros paneles o componentes al contentPane si la ventana principal tuviera más elementos
-        // Ejemplo: JLabel statusLabel = new JLabel("Listo");
-        // getContentPane().add(statusLabel, java.awt.BorderLayout.SOUTH);
+        add(panelTitulo, BorderLayout.NORTH);
+        add(panelBotones, BorderLayout.CENTER);
     }
 
     /**
@@ -81,7 +100,6 @@ public class VentanaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Termina la app al cerrar
         setSize(600, 400); // Tamaño inicial
         setLocationRelativeTo(null); // Centrar en pantalla
-        // setVisible(true); // Hacerla visible se hará desde fuera (ej: main)
     }
 
     /**
@@ -89,11 +107,13 @@ public class VentanaPrincipal extends JFrame {
      * @param listener El ActionListener que manejará los eventos.
      */
     public void setControlador(ActionListener listener) {
+        btnGestionAsociados.addActionListener(listener);
+        btnSimulacion.addActionListener(listener);
+
         itemSalir.addActionListener(listener);
         itemGestionAsociados.addActionListener(listener);
         itemIniciarSimulacion.addActionListener(listener);
         itemInicializarBD.addActionListener(listener);
-        itemSalir.addActionListener(listener);
     }
 
     /**

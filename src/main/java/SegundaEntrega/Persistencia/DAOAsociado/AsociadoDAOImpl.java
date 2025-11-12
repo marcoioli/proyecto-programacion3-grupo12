@@ -19,12 +19,13 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
         return ConexionSingleton.getInstance().getConnection();
     }
 
-    @Override
     public void guardar(Asociado asociado) throws DAOException {
-        // Sentencia SQL parametrizada para evitar inyección SQL
         String sql = "INSERT INTO asociados (dni, nombre, apellido, domicilio, telefono, ciudad) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, asociado.getDni());
             pstmt.setString(2, asociado.getNombre());
@@ -40,24 +41,29 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
             System.out.println("DAO: Asociado guardado: " + asociado.getDni()); // Log
 
         } catch (SQLException e) {
-            // Podríamos verificar códigos de error específicos (ej: clave duplicada)
             System.err.println("Error SQL al guardar asociado: " + e.getMessage());
             throw new DAOException("Error al guardar asociado con DNI: " + asociado.getDni(), e);
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
+            }
+            // NO CERRAMOS LA CONEXIÓN
         }
     }
-
-    @Override
     public void eliminar(Asociado asociado) throws DAOException {
         String sql = "DELETE FROM asociados WHERE dni = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, asociado.getDni());
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                // Podría ser normal si intentas borrar algo que ya no está,
-                // pero lanzamos excepción según el contrato de GestorAsociados
                 throw new DAOException("No se encontró asociado para eliminar con DNI: " + asociado.getDni());
             }
             System.out.println("DAO: Asociado eliminado: " + asociado.getDni()); // Log
@@ -65,22 +71,30 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
         } catch (SQLException e) {
             System.err.println("Error SQL al eliminar asociado: " + e.getMessage());
             throw new DAOException("Error al eliminar asociado con DNI: " + asociado.getDni(), e);
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
+            }
+            // NO CERRAMOS LA CONEXIÓN
         }
     }
 
-    @Override
     public Optional<Asociado> buscarPorDNI(String dni) throws DAOException {
         String sql = "SELECT dni, nombre, apellido, domicilio, telefono, ciudad FROM asociados WHERE dni = ?";
         Asociado asociado = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, dni);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                // Mapear el ResultSet a un objeto Asociado
                 asociado = new Asociado();
                 asociado.setDni(rs.getString("dni"));
                 asociado.setNombre(rs.getString("nombre"));
@@ -96,11 +110,17 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
         } catch (SQLException e) {
             System.err.println("Error SQL al buscar asociado: " + e.getMessage());
             throw new DAOException("Error al buscar asociado con DNI: " + dni, e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar recursos: " + e.getMessage());
+            }
+            // NO CERRAMOS LA CONEXIÓN
         }
-        // Devolver un Optional para manejar elegantemente el caso de no encontrarlo
         return Optional.ofNullable(asociado);
     }
-
 
     @Override
 // En AsociadoDAOImpl.java
@@ -145,8 +165,11 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
     @Override
     public void actualizar(Asociado asociado) throws DAOException {
         String sql = "UPDATE asociados SET nombre = ?, apellido = ?, domicilio = ?, telefono = ?, ciudad = ? WHERE dni = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, asociado.getNombre());
             pstmt.setString(2, asociado.getApellido());
@@ -164,6 +187,13 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
         } catch (SQLException e) {
             System.err.println("Error SQL al actualizar asociado: " + e.getMessage());
             throw new DAOException("Error al actualizar asociado con DNI: " + asociado.getDni(), e);
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
+            }
+            // NO CERRAMOS LA CONEXIÓN
         }
     }
 

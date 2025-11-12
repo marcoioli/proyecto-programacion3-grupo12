@@ -14,7 +14,7 @@ public class ConexionSingleton {
     private Connection connection; // La conexión JDBC
 
     // **¡IMPORTANTE! Configura estos valores según tu base de datos**
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/grupo_2";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/grupo_2?allowPublicKeyRetrieval=true&useSSL=false";
     private static final String DB_USER = "progra_c";
     private static final String DB_PASSWORD = "progra_c";
     private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";

@@ -21,7 +21,7 @@ public class Asociado extends Persona { // Hereda de Persona
      */
     public Asociado(String nombre, String apellido, String dni, String domicilio, String telefono, String ciudad) {
         // Llama al constructor de la superclase Persona
-        super(nombre, apellido, dni, domicilio, telefono, ciudad);
+        super(dni, nombre, apellido, domicilio, ciudad, telefono);
     }
 
     // Constructor vacío (puede ser útil para algunas operaciones o frameworks)

@@ -1,7 +1,7 @@
 package SegundaEntrega.Modelo.Negocio;
 
 import SegundaEntrega.Modelo.Datos.Personas.Asociado;
-import SegundaEntrega.Modelo.Datos.Personas.Operario; // Asumiendo que tenemos la clase Operario
+//import SegundaEntrega.Modelo.Datos.Personas.Operario; // la elimino para hacerlo por demanda
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class Simulador {
 
     private final Ambulancia ambulancia;
     private final GestorAsociados gestorAsociados; // Para obtener la lista de asociados
-    private final Operario operario; // El operario que solicita mantenimiento
+    //private final Operario operario; // El operario que solicita mantenimiento, lo comento para hacer por demanda
     private ExecutorService executorService; // Gestiona los hilos
     private volatile boolean simulacionActiva = false; // Controla si la simulación está corriendo
 
@@ -24,12 +24,11 @@ public class Simulador {
      * Constructor.
      * @param ambulancia La instancia compartida de la ambulancia.
      * @param gestorAsociados El gestor para obtener los asociados.
-     * @param operario El operario de la simulación.
      */
-    public Simulador(Ambulancia ambulancia, GestorAsociados gestorAsociados, Operario operario) {
+    public Simulador(Ambulancia ambulancia, GestorAsociados gestorAsociados) {
         this.ambulancia = ambulancia;
         this.gestorAsociados = gestorAsociados;
-        this.operario = operario;
+    //    this.operario = operario; lo saco, para hacer por demadna
     }
 
     /**
@@ -57,7 +56,7 @@ public class Simulador {
 
         // Usar un ExecutorService es más moderno y manejable que crear Threads directamente
         // Se crea un pool con un hilo por asociado + 1 para el operario
-        executorService = Executors.newFixedThreadPool(asociados.size() + 1);
+        executorService = Executors.newFixedThreadPool(asociados.size()); //saque el +1 porque reservaba un hilo para el operario
         simulacionActiva = true;
 
         // Crear y lanzar hilos (tareas) para cada asociado
@@ -67,10 +66,12 @@ public class Simulador {
             System.out.println("SIMULADOR: Iniciando tarea para asociado " + a.getNombreCompleto());
         }
 
-        // Crear y lanzar hilo (tarea) para el operario
-        OperarioRunnable tareaOperario = new OperarioRunnable(operario, ambulancia, this); // Pasa el simulador para control
-        executorService.submit(tareaOperario);
-        System.out.println("SIMULADOR: Iniciando tarea para operario " + operario.getNombreCompleto());
+       // // Crear y lanzar hilo (tarea) para el operario, comentado para hacerlo por demanda
+       // OperarioRunnable tareaOperario = new OperarioRunnable(operario, ambulancia, this); // Pasa el simulador para control
+       // executorService.submit(tareaOperario);
+       // System.out.println("SIMULADOR: Iniciando tarea para operario " + operario.getNombreCompleto());
+
+
 
         System.out.println("SIMULADOR: Todas las tareas han sido iniciadas.");
         // El ExecutorService maneja los hilos. La simulación corre en background.
@@ -123,5 +124,27 @@ public class Simulador {
      */
     public boolean isSimulacionActiva() {
         return simulacionActiva;
+    }
+
+    /**
+     * Procesa una solicitud de mantenimiento proveniente "por demanda"
+     * La solicitud se envía al pool de hilos (ExecutorService) para no bloquear
+     * la interfaz de usuario , ya que la ambulancia podría estar ocupada
+     * y el método solicitarMantenimiento() puede entrar en espera (wait).
+     *
+     * @param solicitante El identificador del solicitante
+     */
+    public void solicitarMantenimientoPorDemanda(String solicitante) {
+        if (simulacionActiva && executorService != null && !executorService.isShutdown()) {
+            System.out.println("SIMULADOR: Recibida solicitud de mantenimiento 'Por Demanda' de " + solicitante);
+
+            // Enviamos la tarea (que puede bloquearse) a un hilo del pool
+            executorService.submit(() -> {
+                System.out.println("--> Tarea (Demanda) " + solicitante + " ejecutando solicitarMantenimiento...");
+                ambulancia.solicitarMantenimiento(solicitante);
+                System.out.println("<-- Tarea (Demanda) " + solicitante + " finalizó solicitarMantenimiento.");
+            });
+
+        }
     }
 }

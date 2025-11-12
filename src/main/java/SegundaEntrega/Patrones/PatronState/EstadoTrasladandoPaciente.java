@@ -41,10 +41,6 @@ public class EstadoTrasladandoPaciente implements IEstadoAmbulancia {
      * En este estado, interpretamos que este evento significa que el traslado
      * HA FINALIZADO y la ambulancia ha llegado a la clínica.
      * Por lo tanto, transiciona a Disponible (Estado 1).
-     *
-     * (Nota: La tabla del enunciado indica "permanece en 2" para esta celda,
-     * lo cual crearía un estado sin salida. Esta implementación asume que
-     * lógicamente debe pasar a Disponible al finalizar el traslado.)
      */
     @Override
     public void retornarAClinica() {

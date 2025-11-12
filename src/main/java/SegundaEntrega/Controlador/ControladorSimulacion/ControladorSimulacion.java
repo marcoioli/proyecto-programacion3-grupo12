@@ -47,6 +47,9 @@ public class ControladorSimulacion implements ActionListener {
             case "FINALIZAR_SIMULACION":
                 finalizar();
                 break;
+            case "SOLICITAR_MANTENIMIENTO": // Este es el nuevo ActionCommand
+                solicitarMantenimiento();
+                break;
             default:
                 System.err.println("Comando no reconocido en ControladorSimulacion: " + command);
                 break;
@@ -82,4 +85,18 @@ public class ControladorSimulacion implements ActionListener {
             SwingUtilities.invokeLater(() -> vista.agregarLogGeneral("--> Simulación finalizada."));
         }).start();
     }
+
+    /** * Llama al método del simulador para solicitar mantenimiento "por demanda".
+     * Esta acción es invocada por el usuario (Operario) desde la GUI.
+     */
+    private void solicitarMantenimiento() {
+        vista.agregarLogGeneral("OPERARIO (GUI): Solicitando mantenimiento...");
+
+        // Llamamos directamente al método del simulador.
+        // Es seguro hacerlo desde el hilo de la GUI (EDT) porque
+        // 'solicitarMantenimientoPorDemanda' está diseñado para ser NO bloqueante
+        // (ya que usa el ExecutorService internamente).
+        modeloSimulador.solicitarMantenimientoPorDemanda("Operario (GUI)");
+    }
 }
+

@@ -18,7 +18,7 @@ public class VentanaSimulacion extends JFrame implements Observer {
     private JTextArea areaLogAmbulancia; // Muestra estado/actividad de la ambulancia
     private JTextArea areaLogGeneral;   // Muestra actividad general (asociados/operario)
     private JLabel lblEstadoAmbulancia; // Muestra el estado actual simple
-
+    private JButton btnSolicitarMantenimiento; // Botón para el operario
     /**
      * Constructor.
      */
@@ -41,9 +41,12 @@ public class VentanaSimulacion extends JFrame implements Observer {
         btnIniciar.setActionCommand("INICIAR_SIMULACION");
         btnFinalizar = new JButton("Finalizar Simulación");
         btnFinalizar.setActionCommand("FINALIZAR_SIMULACION");
+        btnSolicitarMantenimiento = new JButton("Solicitar Mantenimiento (Operario)");
+        btnSolicitarMantenimiento.setActionCommand("SOLICITAR_MANTENIMIENTO");
         btnFinalizar.setEnabled(false); // Deshabilitado hasta que inicie
         panelControles.add(btnIniciar);
         panelControles.add(btnFinalizar);
+        panelControles.add(btnSolicitarMantenimiento);
 
         // Panel de Visualización (Centro) - Dividido
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -75,10 +78,14 @@ public class VentanaSimulacion extends JFrame implements Observer {
         setLocationRelativeTo(null);
     }
 
-    /** Asigna el controlador a los botones */
+    /**
+     * Asigna el controlador a los componentes interactivos de la vista.
+     * @param listener El ActionListener (Controlador)
+     */
     public void setControlador(ActionListener listener) {
         btnIniciar.addActionListener(listener);
         btnFinalizar.addActionListener(listener);
+        this.btnSolicitarMantenimiento.addActionListener(listener);
     }
 
     // --- Métodos para interacción con el Controlador ---
@@ -87,11 +94,15 @@ public class VentanaSimulacion extends JFrame implements Observer {
         return (Integer) spinnerSolicitudes.getValue();
     }
 
-    /** Actualiza el estado de los botones (Iniciar/Finalizar) */
+    /**
+     * Habilita o deshabilita los controles según si la simulación está activa.
+     * @param activa true si la simulación está corriendo, false si está detenida.
+     */
     public void setSimulacionActiva(boolean activa) {
         btnIniciar.setEnabled(!activa);
         spinnerSolicitudes.setEnabled(!activa); // No cambiar config mientras corre
         btnFinalizar.setEnabled(activa);
+        btnSolicitarMantenimiento.setEnabled(activa);
     }
 
     /** Añade texto al log general (hilos asociados/operario) */

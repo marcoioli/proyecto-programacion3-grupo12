@@ -19,12 +19,12 @@ public class EstadoEnTaller implements IEstadoAmbulancia {
      * para transicionar al siguiente estado.
      */
     private void simularTiempoDeAtencion() {
-        System.out.println("   ... Ambulancia ocupada en domicilio (simulando tiempo)...");
+        System.out.println("   ... Ambulancia ocupada en taller (simulando tiempo)...");
         new Thread(() -> {
             try {
                 Thread.sleep(random.nextInt(3000) + 2000);
-                System.out.println("   ... Atención a domicilio finalizada.");
-                ambulancia.retornarAClinica();
+                System.out.println("   ... Mantenimiento finalizado.");
+                ambulancia.solicitarMantenimiento("Taller(Fin tarea)");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.err.println("WARN: Hilo de simulación de atención interrumpido.");
@@ -69,5 +69,5 @@ public class EstadoEnTaller implements IEstadoAmbulancia {
     @Override
     public boolean puedeTrasladar() { return false; }
     @Override
-    public boolean puedeIrATaller() { return false; } // Ya está en taller
+    public boolean puedeIrATaller() { return true; } // Ya está en taller
 }

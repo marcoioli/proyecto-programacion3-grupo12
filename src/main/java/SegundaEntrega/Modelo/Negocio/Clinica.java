@@ -58,14 +58,14 @@ public class Clinica {
      * Constructor privado para Singleton. Inicializa componentes.
      */
     private Clinica() {
-        // Inicialización Etapa I (Ajusta según tu código)
+
         this.pacientes = new ArrayList<>();
         this.medicos = new ArrayList<>();
         this.habitaciones = new ArrayList<>();
         this.catalogoCostos = new CatalogoCostos(); // Asume constructor vacío
-        // ... inicializa otros componentes de Etapa I si los hay ...
 
-        // Inicialización Etapa II
+
+
         try {
             // Es crucial que la conexión se establezca antes de usar el DAO
             ConexionSingleton.getInstance(); // Intenta conectar al instanciar Clinica

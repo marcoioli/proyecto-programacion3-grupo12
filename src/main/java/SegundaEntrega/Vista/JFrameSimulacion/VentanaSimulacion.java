@@ -43,7 +43,8 @@ public class VentanaSimulacion extends JFrame implements Observer {
         btnFinalizar.setActionCommand("FINALIZAR_SIMULACION");
         btnSolicitarMantenimiento = new JButton("Solicitar Mantenimiento (Operario)");
         btnSolicitarMantenimiento.setActionCommand("SOLICITAR_MANTENIMIENTO");
-        btnFinalizar.setEnabled(false); // Deshabilitado hasta que inicie
+        btnFinalizar.setEnabled(false);
+        btnSolicitarMantenimiento.setEnabled(false);// Deshabilitado hasta que inicie
         panelControles.add(btnIniciar);
         panelControles.add(btnFinalizar);
         panelControles.add(btnSolicitarMantenimiento);
@@ -74,7 +75,7 @@ public class VentanaSimulacion extends JFrame implements Observer {
 
     private void configurarVentana() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(700, 600);
+        setSize(900, 600);
         setLocationRelativeTo(null);
     }
 

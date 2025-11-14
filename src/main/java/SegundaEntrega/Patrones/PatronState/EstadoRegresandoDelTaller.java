@@ -18,16 +18,22 @@ public class EstadoRegresandoDelTaller implements IEstadoAmbulancia {
      * atención a domicilio. Cuando termina, llama a retornarAClinica()
      * para transicionar al siguiente estado.
      */
+    // Archivo: EstadoRegresandoDelTaller.java
+
+    /**
+     * Simula el tiempo de viaje de regreso desde el taller.
+     * Cuando termina, llama a retornarAClinica() para pasar a Disponible.
+     */
     private void simularTiempoDeAtencion() {
-        System.out.println("   ... Ambulancia ocupada en domicilio (simulando tiempo)...");
+        System.out.println("   ... Ambulancia REGRESANDO DE TALLER (simulando tiempo)..."); // <-- Mensaje corregido
         new Thread(() -> {
             try {
-                Thread.sleep(random.nextInt(3000) + 2000);
-                System.out.println("   ... Atención a domicilio finalizada.");
-                ambulancia.retornarAClinica();
+                Thread.sleep(random.nextInt(3000) + 2000); // Simular viaje
+                System.out.println("   ... Ambulancia LLEGÓ a la clínica desde el taller."); // <-- Mensaje corregido
+                ambulancia.retornarAClinica(); // Transiciona a Estado 1 (Disponible)
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.err.println("WARN: Hilo de simulación de atención interrumpido.");
+                System.err.println("WARN: Hilo de simulación de regreso de taller interrumpido.");
             }
         }).start();
     }

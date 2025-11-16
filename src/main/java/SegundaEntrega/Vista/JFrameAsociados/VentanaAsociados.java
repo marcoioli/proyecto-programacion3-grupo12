@@ -115,11 +115,35 @@ public class VentanaAsociados extends JFrame implements Observer { // Implementa
     }
 
     // --- Métodos para que el Controlador obtenga datos de la vista ---
+    /**
+     * Obtiene el DNI ingresado en el campo de texto.
+     * @return El DNI como una cadena de texto (String), sin espacios al inicio o fin.
+     */
     public String getDni() { return txtDni.getText().trim(); }
+    /**
+     * Obtiene el nombre ingresado en el campo de texto.
+     * @return El nombre como String, sin espacios al inicio o fin.
+     */
     public String getNombre() { return txtNombre.getText().trim(); }
+    /**
+     * Obtiene el apellido ingresado en el campo de texto.
+     * @return El apellido como String, sin espacios al inicio o fin.
+     */
     public String getApellido() { return txtApellido.getText().trim(); }
+    /**
+     * Obtiene el domicilio ingresado en el campo de texto.
+     * @return El domicilio como String, sin espacios al inicio o fin.
+     */
     public String getDomicilio() { return txtDomicilio.getText().trim(); }
+    /**
+     * Obtiene el teléfono ingresado en el campo de texto.
+     * @return El teléfono como String, sin espacios al inicio o fin.
+     */
     public String getTelefono() { return txtTelefono.getText().trim(); }
+    /**
+     * Obtiene la ciudad ingresada en el campo de texto.
+     * @return La ciudad como String, sin espacios al inicio o fin.
+     */
     public String getCiudad() { return txtCiudad.getText().trim(); }
 
     /**

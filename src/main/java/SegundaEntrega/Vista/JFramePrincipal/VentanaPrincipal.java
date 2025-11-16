@@ -80,7 +80,7 @@ public class VentanaPrincipal extends JFrame {
         menuSimulacion.add(itemIniciarSimulacion);
         menuBar.add(menuSimulacion); // Se añade a la barra principal
 
-        // Menú Sistema (No redeclares menuBar aquí)
+        // Menú Sistema
         JMenu menuSistema = new JMenu("Sistema");
         itemInicializarBD = new JMenuItem("Inicializar Base de Datos");
         itemInicializarBD.setActionCommand("INICIALIZAR_BD");

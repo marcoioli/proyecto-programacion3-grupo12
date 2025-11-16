@@ -90,7 +90,10 @@ public class VentanaSimulacion extends JFrame implements Observer {
     }
 
     // --- Métodos para interacción con el Controlador ---
-
+    /**
+     * Obtiene la cantidad de solicitudes por asociado configurada en el JSpinner.
+     * @return Un entero (int) con el número de solicitudes seleccionado.
+     */
     public int getCantidadSolicitudes() {
         return (Integer) spinnerSolicitudes.getValue();
     }
@@ -111,14 +114,6 @@ public class VentanaSimulacion extends JFrame implements Observer {
         SwingUtilities.invokeLater(() -> { // Asegurar actualización en el hilo de UI
             areaLogGeneral.append(mensaje + "\n");
             areaLogGeneral.setCaretPosition(areaLogGeneral.getDocument().getLength()); // Auto-scroll
-        });
-    }
-
-    /** Añade texto al log de la ambulancia */
-    public void agregarLogAmbulancia(String mensaje) {
-        SwingUtilities.invokeLater(() -> {
-            areaLogAmbulancia.append(mensaje + "\n");
-            areaLogAmbulancia.setCaretPosition(areaLogAmbulancia.getDocument().getLength());
         });
     }
 

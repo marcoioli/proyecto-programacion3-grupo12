@@ -12,8 +12,6 @@ public class ConexionSingleton {
 
     private static ConexionSingleton instancia; // La única instancia
     private Connection connection; // La conexión JDBC
-
-    // **¡IMPORTANTE! Configura estos valores según tu base de datos**
     private static final String DB_URL = "jdbc:mysql://localhost:3306/grupo_2?allowPublicKeyRetrieval=true&useSSL=false";
     private static final String DB_USER = "progra_c";
     private static final String DB_PASSWORD = "progra_c";
@@ -27,9 +25,7 @@ public class ConexionSingleton {
      */
     private ConexionSingleton() throws SQLException {
         try {
-            // Cargar el driver (necesario en versiones antiguas de JDBC, buena práctica incluirlo)
             Class.forName(DB_DRIVER);
-            // Establecer la conexión
             this.connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             System.out.println("Conexión a la base de datos establecida."); // Log
         } catch (ClassNotFoundException e) {
@@ -43,7 +39,7 @@ public class ConexionSingleton {
 
     /**
      * Método estático para obtener la única instancia de la clase (Singleton).
-     * Utiliza inicialización perezosa y es synchronized para seguridad en hilos.
+     * es synchronized para seguridad en hilos.
      * @return La instancia única de ConexionSingleton.
      * @throws SQLException Si no se puede establecer la conexión la primera vez.
      */
@@ -51,16 +47,12 @@ public class ConexionSingleton {
         if (instancia == null) {
             instancia = new ConexionSingleton();
         }
-        // Podríamos añadir una verificación aquí si la conexión se cerró por alguna razón
-        // else if (instancia.getConnection().isClosed()) {
-        //     instancia = new ConexionSingleton(); // Reintentar conexión
-        // }
         return instancia;
     }
 
     /**
      * Devuelve la conexión JDBC activa.
-     * @return La objeto Connection.
+     * @return Connection.
      */
     public Connection getConnection() {
         // Podríamos añadir verificación de si está cerrada y reabrirla si es necesario
@@ -69,13 +61,13 @@ public class ConexionSingleton {
 
     /**
      * Cierra la conexión a la base de datos.
-     * Debería llamarse al finalizar la aplicación.
+     *
      */
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Conexión a la base de datos cerrada."); // Log
+                System.out.println("Conexión a la base de datos cerrada.");
             }
         } catch (SQLException e) {
             System.err.println("Error al cerrar la conexión: " + e.getMessage());

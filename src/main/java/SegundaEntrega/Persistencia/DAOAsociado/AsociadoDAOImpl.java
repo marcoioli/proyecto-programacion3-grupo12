@@ -49,7 +49,6 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
             } catch (SQLException e) {
                 System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
             }
-            // NO CERRAMOS LA CONEXIÓN
         }
     }
     public void eliminar(Asociado asociado) throws DAOException {
@@ -77,7 +76,6 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
             } catch (SQLException e) {
                 System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
             }
-            // NO CERRAMOS LA CONEXIÓN
         }
     }
 
@@ -117,7 +115,7 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
             } catch (SQLException e) {
                 System.err.println("Error al cerrar recursos: " + e.getMessage());
             }
-            // NO CERRAMOS LA CONEXIÓN
+
         }
         return Optional.ofNullable(asociado);
     }
@@ -158,7 +156,7 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
             System.err.println("Error SQL al listar asociados: " + e.getMessage());
             throw new DAOException("Error al listar todos los asociados", e);
         }
-        // ¡Ya NO cerramos la conexión! Solo se cierran stmt y rs (automáticamente)
+
         return lista;
     }
 
@@ -193,13 +191,11 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
             } catch (SQLException e) {
                 System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
             }
-            // NO CERRAMOS LA CONEXIÓN
         }
     }
 
     /**
      * Inicializa la base de datos para la gestión de asociados.
-     * Este método CUMPLE CON LOS REQUISITOS DEL TP:
      * 1. Elimina la tabla 'asociados' si existe (DROP TABLE)[cite: 100, 349].
      * 2. Crea la tabla 'asociados' (CREATE TABLE).
      * 3. Inserta datos iniciales de ejemplo (INSERT).
@@ -225,12 +221,12 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
         String sqlInsert2 = "INSERT INTO asociados (dni, nombre, apellido, domicilio, telefono, ciudad) VALUES "
                 + "('87654321', 'Maria', 'Gomez', 'Av. Siempre Viva 742', '2235112233', 'Springfield')";
 
-        // --- ARREGLO APLICADO AQUÍ ---
+
         Connection conn = null;
         try {
-            conn = getConnection(); // 1. Obtenemos la conexión (¡FUERA del try-with-resources!)
+            conn = getConnection(); // obtenemos la conexion
 
-            // 2. El try-with-resources es SOLO para el Statement
+
             try (Statement stmt = conn.createStatement()) {
 
                 System.out.println("DAO: Ejecutando DROP TABLE...");
@@ -250,6 +246,6 @@ public class AsociadoDAOImpl implements IAsociadoDAO {
             System.err.println("Error SQL al inicializar la base de datos: " + e.getMessage());
             throw new DAOException("Error al inicializar la tabla 'asociados'", e);
         }
-        // ¡Ya NO se cierra la conexión!
+
     }
 }

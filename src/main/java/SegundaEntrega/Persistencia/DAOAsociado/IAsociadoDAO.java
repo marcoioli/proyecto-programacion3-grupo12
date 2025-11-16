@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional; // Para búsquedas que pueden no encontrar nada
 
 /**
- * Interfaz que define las operaciones de persistencia (CRUD) para la entidad Asociado.
+ * Interfaz que define las operaciones de persistencia para la entidad Asociado.
  * Patrón Data Access Object (DAO).
  */
 public interface IAsociadoDAO {
@@ -22,7 +22,7 @@ public interface IAsociadoDAO {
 
     /**
      * Elimina un asociado de la fuente de datos, usualmente identificado por su DNI.
-     * @param asociado El objeto Asociado a eliminar (se usará su DNI).
+     * @param asociado El objeto Asociado a eliminar (DNI).
      * @throws DAOException Si ocurre un error durante la operación de eliminación o si no se encuentra.
      */
     void eliminar(Asociado asociado) throws DAOException;

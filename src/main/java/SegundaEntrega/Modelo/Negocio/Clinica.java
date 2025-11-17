@@ -63,9 +63,6 @@ public class Clinica {
         this.medicos = new ArrayList<>();
         this.habitaciones = new ArrayList<>();
         this.catalogoCostos = new CatalogoCostos(); // Asume constructor vacío
-
-
-
         try {
             // Es crucial que la conexión se establezca antes de usar el DAO
             ConexionSingleton.getInstance(); // Intenta conectar al instanciar Clinica
@@ -152,18 +149,11 @@ public class Clinica {
         // Crea la factura (podrías necesitar lógica adicional para obtener items facturables)
         Factura factura = new Factura(paciente, null, fecha); // Asume médico nulo por simplicidad
 
-        // Aquí iría la lógica para buscar consultas, internaciones, etc., del paciente y agregarlas
-        // List<IFacturable> itemsParaFacturar = buscarItemsFacturables(paciente);
-        // for (IFacturable item : itemsParaFacturar) {
-        //     factura.agregarItem(item);
-        // }
-
         factura.calcularTotal(); // Calcula el total basado en los items agregados
         System.out.println("Clinica: Factura generada para DNI " + dniPaciente + " por $" + factura.getImporteTotal());
         return factura;
     }
 
-    // --- Métodos Facade (Etapa II - Delegar a GestorAsociados) ---
 
     /** Da de alta un asociado usando el Gestor y persistiendo */
     public synchronized void altaAsociado(Asociado a) throws AsociadoDuplicadoException, DAOException {
